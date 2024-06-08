@@ -1,4 +1,4 @@
-package com.jhu.hw2;
+//package com.jhu.hw2;
 
 public abstract class Aircraft implements Contact {
   private int length;

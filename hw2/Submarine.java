@@ -1,4 +1,4 @@
-package com.jhu.hw2;
+//package com.jhu.hw2;
 
 public class Submarine extends Ship {
   private int numberTorpedos;
