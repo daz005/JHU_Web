@@ -1,4 +1,4 @@
-package com.jhu_hw2.ship;
+package com.jhu.hw2;
 
 public abstract class Ship implements Contact {
   private int length;
