@@ -1,22 +1,24 @@
-package com.jhu.hw2
+package com.jhu.hw2;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Test {
-  public static void main(String[] args) {
+  public class Test {
+    public static void main(String[] args) {
     Destroyer destroyer1 = new Destroyer();
     destroyer1.setName("Destroyer 1");
     destroyer1.setNumberMissile(10);
 
     Destroyer destroyer2 = new Destroyer();
-    destroyer1.setName("Destroyer 2");
-    destroyer1.setNumberMissile(15);
+    destroyer2.setName("Destroyer 2");
+    destroyer2.setNumberMissile(15);
 
     Submarine submarine1 = new Submarine();
     submarine1.setName("Submarine 1");
     submarine1.setNumberTorpedos(8);
 
     Submarine submarine2 = new Submarine();
-    submarine1.setName("Submarine 2");
-    submarine1.setNumberTorpedos("Foo");
+    submarine2.setName("Submarine 2");
+    submarine2.setNumberTorpedos("Foo");
 
     P8 p8_1 = new P8();
     p8_1.setName("P8 1");
@@ -40,7 +42,7 @@ public class Test {
     shipList.add(submarine1);
     shipList.add(submarine2);
 
-    List<Contact> contactList = new Arraylist<>();
+    List<Contact> contactList = new ArrayList<>();
     contactList.add(destroyer1);
     contactList.add(destroyer2);
     contactList.add(submarine1);
@@ -61,10 +63,11 @@ public class Test {
     System.out.println("P8 Aircrafts:");
     System.out.println(p8_1.getName() + " - Engines: " + p8_1.getNumberEngines());
     System.out.println(p8_2.getName() + " - Engines: " + p8_2.getNumberEngines());
-    }
 
     System.out.println("Contacts:");
     for (Contact c : contactList) {
       System.out.println(c.toString());
     }
+}
+}
     

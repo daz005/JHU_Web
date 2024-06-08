@@ -1,4 +1,4 @@
-package com.jhu.hw2
+package com.jhu.hw2;
 
 public class Submarine extends Ship {
   private int numberTorpedos;
@@ -17,4 +17,11 @@ public class Submarine extends Ship {
     } catch (NumberFormatException e) {
       this.numberTorpedos = 2;
     }
+  }
+  
+  @Override
+  public String toString() {
+      return "Submarine{name=" + getName() + ", length=" + getLength() + ", speed=" + getSpeed() + 
+             ", numberTorpedos=" + numberTorpedos + "}";
+  }
 }

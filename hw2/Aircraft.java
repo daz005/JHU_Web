@@ -1,4 +1,4 @@
-package com.jhu.hw2
+package com.jhu.hw2;
 
 public abstract class Aircraft implements Contact {
   private int length;
@@ -40,7 +40,7 @@ public abstract class Aircraft implements Contact {
     try {
       this.speed = Integer.parseInt(speed);
     } catch (NumberFormatException e) {
-      this.speed = 0
+      this.speed = 0;
     }
   }
 

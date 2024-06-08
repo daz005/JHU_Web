@@ -22,7 +22,7 @@ public abstract class Ship implements Contact {
   }
 
   @Override 
-  public void getSpeed(int speed) {
+  public void setSpeed(int speed) {
     this.speed = speed;
   }
 
