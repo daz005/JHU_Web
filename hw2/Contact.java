@@ -1,4 +1,4 @@
-package com.jhu_hw2.contact;
+package com.jhu.hw2;
 
 public interface Contact {
 
