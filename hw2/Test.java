@@ -62,5 +62,9 @@ public class Test {
     System.out.println(p8_1.getName() + " - Engines: " + p8_1.getNumberEngines());
     System.out.println(p8_2.getName() + " - Engines: " + p8_2.getNumberEngines());
     }
-    
+
+    System.out.println("Contacts:");
+    for (Contact c : contactList) {
+      System.out.println(c.toString());
+    }
     
