@@ -395,50 +395,11 @@ public class hw3 {
             public void actionPerformed(ActionEvent e) {
 
                 costLabel.setText("");
-                boolean hasError = false;
 
                 HikeType hikeType = (HikeType)comboBoxHikeType.getSelectedItem();
                 Integer duration = (Integer)comboBoxDuration.getSelectedItem();
                 Integer numHikers = (Integer)comboBoxNumberHikers.getSelectedItem();
                 Integer startYear = (Integer)comboBoxYear.getSelectedItem(); 
-                int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-                if(startYear < Rates.DEFAULT_MIN_YEAR )
-                {
-                    // Show a message dialog
-                    // JOptionPane.showMessageDialog(hw3.frame, 
-                    // startYear + " is less than the default minimum year, please select a year from the current year to the default maximum year " + Rates.DEFAULT_MIN_YEAR, 
-                    // "Error Message", JOptionPane.INFORMATION_MESSAGE);      
-
-                    // if(comboBoxYear.getItemCount()>0)
-                    // {
-                    //     comboBoxYear.setSelectedIndex(0);
-                    // } 
-                }
-                else if(startYear > Rates.DEFAULT_MAX_YEAR )
-                {
-                    // // Show a message dialog
-                    // JOptionPane.showMessageDialog(hw3.frame, 
-                    // startYear + " is great than the default maximum year, please select a year from the current year to the default maximum year " + Rates.DEFAULT_MAX_YEAR, 
-                    // "Error Message", JOptionPane.INFORMATION_MESSAGE);      
-
-                    // if(comboBoxYear.getItemCount()>0)
-                    // {
-                    //     comboBoxYear.setSelectedIndex(0);
-                    // } 
-                }
-                else if(startYear < currentYear)
-                {
-                    // Show a message dialog
-                    // JOptionPane.showMessageDialog(hw3.frame, 
-                    // startYear + " is a past year, please select a year from the current year to the default maximum year " + Rates.DEFAULT_MAX_YEAR, 
-                    // "Error Message", JOptionPane.INFORMATION_MESSAGE);      
-
-                    // if(comboBoxYear.getItemCount()>0)
-                    // {
-                    //     comboBoxYear.setSelectedIndex(0);
-                    // }  
-                }
-
                 Integer startMonth = getMonthFromString((String)comboBoxMonths.getSelectedItem());
                 if(startMonth<1 || startMonth > months.length)
                 {
@@ -500,8 +461,6 @@ public class hw3 {
                 else{
                     costLabel.setText(String.valueOf(costs));
                 }
-                
-
             }
         });
 
