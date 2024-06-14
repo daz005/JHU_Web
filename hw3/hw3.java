@@ -55,58 +55,8 @@ public class hw3 {
     }
 
     private static double updateCost( 
-        JComboBox<HikeType> comboBoxHikeType,
-        JComboBox<Integer> comboBoxDuration,
-        JComboBox<Integer> comboBoxYear,
-        JComboBox<String> comboBoxMonths,
-        JComboBox<Integer> comboBoxDays,
-        JComboBox<Integer> comboBoxNumberHikers
+        HikeType hikeType,Integer duration,Integer startYear, Integer startMonth,Integer startDay,Integer numHikers
     ){
-        // if (comboBoxHikeType.getItemCount()==0 || comboBoxDuration.getItemCount()==0
-        // ||comboBoxYear.getItemCount()==0 || comboBoxMonths.getItemCount()==0
-        // ||comboBoxDays.getItemCount()==0 || comboBoxNumberHikers.getItemCount()==0
-        // )
-        // {
-        //     return 0.01;
-        // }
-
-        // if(comboBoxHikeType.getSelectedItem()==null && comboBoxHikeType.getItemCount() > 0)
-        // {
-        //     comboBoxHikeType.setSelectedIndex(0); 
-        // }
-
-        // if(comboBoxDuration.getSelectedItem()==null && comboBoxDuration.getItemCount() > 0)
-        // {
-        //     comboBoxDuration.setSelectedIndex(0); 
-        // }
-
-        // if(comboBoxYear.getSelectedItem()==null && comboBoxYear.getItemCount() > 0)
-        // {
-        //     comboBoxYear.setSelectedIndex(0); 
-        // }
-
-        // if(comboBoxMonths.getSelectedItem()==null && comboBoxMonths.getItemCount() > 0)
-        // {
-        //     comboBoxMonths.setSelectedIndex(0); 
-        // }       
-
-        // if(comboBoxDays.getSelectedItem()==null && comboBoxDays.getItemCount() > 0)
-        // {
-        //     comboBoxDays.setSelectedIndex(0); 
-        // }       
-
-        // if(comboBoxNumberHikers.getSelectedItem()==null && comboBoxNumberHikers.getItemCount() > 0)
-        // {
-        //     comboBoxNumberHikers.setSelectedIndex(0); 
-        // }          
-       
-        HikeType hikeType = (HikeType)comboBoxHikeType.getSelectedItem();
-        Integer duration = (Integer)comboBoxDuration.getSelectedItem();
-        Integer startYear = (Integer)comboBoxYear.getSelectedItem(); 
-        Integer startMonth = getMonthFromString((String)comboBoxMonths.getSelectedItem()); 
-        Integer startDay = (Integer)comboBoxDays.getSelectedItem();
-        Integer numHikers = (Integer)comboBoxNumberHikers.getSelectedItem();
-
         if(hikeType==null || duration==null || 
         startYear==null || startMonth==null || startDay==null || 
         numHikers==null)
@@ -163,13 +113,6 @@ public class hw3 {
 
         // Create the JComboBox for year
         JComboBox<Integer> comboBoxYear = new JComboBox<>();
-        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        for (int i = Rates.DEFAULT_MIN_YEAR; i <= Rates.DEFAULT_MAX_YEAR; i++) {
-            if(i >=  currentYear) {
-                Integer item = Integer.valueOf(i);
-                comboBoxYear.addItem(item); 
-            }
-        }
         
         // Create the JComboBox for Months
         JComboBox<String> comboBoxMonths = new JComboBox<>();
@@ -197,6 +140,9 @@ public class hw3 {
                     comboBoxDuration.addItem(item);
                     System.out.println("duration==" + intArray[i]); 
                 }  
+                if(comboBoxDuration.getItemCount()>0){
+                    comboBoxDuration.setSelectedIndex(0);
+                }               
                 
                 //number of hikers:
                 int maxHikers = hw3.rate.getMaxHikers();
@@ -204,10 +150,31 @@ public class hw3 {
                 for (int i = 1; i <= maxHikers; i++) {
                     Integer item = Integer.valueOf(i);
                     comboBoxNumberHikers.addItem(item);
-                    //System.out.println("number of hikers==" + intArray[i]); 
                 } 
+                if(comboBoxNumberHikers.getItemCount()>0){
+                    comboBoxNumberHikers.setSelectedIndex(0);
+                }
 
-                double costs = updateCost(comboBoxHikeType, comboBoxDuration, comboBoxYear, comboBoxMonths, comboBoxDays, comboBoxNumberHikers);
+                comboBoxYear.removeAllItems();
+                int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+                for (int i = Rates.DEFAULT_MIN_YEAR; i <= Rates.DEFAULT_MAX_YEAR; i++) {
+                    if(i >=  currentYear) {
+                        Integer item = Integer.valueOf(i);
+                        comboBoxYear.addItem(item); 
+                    }
+                }
+                if(comboBoxYear.getItemCount()>0){
+                    comboBoxYear.setSelectedIndex(0);
+                }               
+
+                HikeType hikeType = (HikeType)comboBoxHikeType.getSelectedItem();
+                Integer duration = (Integer)comboBoxDuration.getSelectedItem();
+                Integer startYear = (Integer)comboBoxYear.getSelectedItem(); 
+                Integer startMonth = getMonthFromString((String)comboBoxMonths.getSelectedItem()); 
+                Integer startDay = (Integer)comboBoxDays.getSelectedItem();
+                Integer numHikers = (Integer)comboBoxNumberHikers.getSelectedItem();
+
+                double costs = updateCost(hikeType, duration, startYear, startMonth, startDay, numHikers);
                 costLabel.setText(String.valueOf(costs));  
                               
             }
@@ -225,7 +192,14 @@ public class hw3 {
                 {
                     System.out.println("selected duration==" + selectedItem); 
 
-                    double costs = updateCost(comboBoxHikeType, comboBoxDuration, comboBoxYear, comboBoxMonths, comboBoxDays, comboBoxNumberHikers);
+                    HikeType hikeType = (HikeType)comboBoxHikeType.getSelectedItem();
+                    Integer duration = (Integer)comboBoxDuration.getSelectedItem();
+                    Integer startYear = (Integer)comboBoxYear.getSelectedItem(); 
+                    Integer startMonth = getMonthFromString((String)comboBoxMonths.getSelectedItem()); 
+                    Integer startDay = (Integer)comboBoxDays.getSelectedItem();
+                    Integer numHikers = (Integer)comboBoxNumberHikers.getSelectedItem();
+    
+                    double costs = updateCost(hikeType, duration, startYear, startMonth, startDay, numHikers);                    
                     costLabel.setText(String.valueOf(costs));                  
                 }   
             }
@@ -242,7 +216,14 @@ public class hw3 {
                 {
                     System.out.println("selected number of hikers=" + selectedItem); 
 
-                    double costs = updateCost(comboBoxHikeType, comboBoxDuration, comboBoxYear, comboBoxMonths, comboBoxDays, comboBoxNumberHikers);
+                    HikeType hikeType = (HikeType)comboBoxHikeType.getSelectedItem();
+                    Integer duration = (Integer)comboBoxDuration.getSelectedItem();
+                    Integer startYear = (Integer)comboBoxYear.getSelectedItem(); 
+                    Integer startMonth = getMonthFromString((String)comboBoxMonths.getSelectedItem()); 
+                    Integer startDay = (Integer)comboBoxDays.getSelectedItem();
+                    Integer numHikers = (Integer)comboBoxNumberHikers.getSelectedItem();
+    
+                    double costs = updateCost(hikeType, duration, startYear, startMonth, startDay, numHikers);  
                     costLabel.setText(String.valueOf(costs));   
                 }   
             }
@@ -261,29 +242,27 @@ public class hw3 {
                     System.out.println("selected number of year=" + selectedItem); 
                     
                     comboBoxMonths.removeAllItems();
-                    int endMonth = hw3.rate.getSeasonEndMonth();
-
-                    YearMonth result = YearMonth.now(); 
-                    int curr_year = result.getYear();
-                    int curr_month = result.getMonthValue();
-                    int curr_dayOfMonth = LocalDate.now().getDayOfMonth();
-
                     for (int i = 0; i < hw3.months.length; i++) {
-
-                        //skip past days:
-                        if(selectedItem < curr_year)
-                            continue;
-                        if(selectedItem == curr_year && (i+1) < curr_month)
-                            continue;    
-
-                        if( i+1 >= hw3.rate.getSeasonStartMonth() && i+1 <= endMonth)
-                        {
-                            String item = hw3.months[i];
-                            comboBoxMonths.addItem(item);
-                        }
+                        String item = hw3.months[i];
+                        comboBoxMonths.addItem(item);
+                        comboBoxMonths.setSelectedIndex(comboBoxMonths.getItemCount()-1);   
+                        if(comboBoxDays.getItemCount()==0){
+                            comboBoxMonths.removeItemAt(comboBoxMonths.getItemCount() -1 );
+                        }                         
                     } 
 
-                    double costs = updateCost(comboBoxHikeType, comboBoxDuration, comboBoxYear, comboBoxMonths, comboBoxDays, comboBoxNumberHikers);
+                    if(comboBoxMonths.getItemCount()>0){
+                        comboBoxMonths.setSelectedIndex(0);
+                    }
+
+                    HikeType hikeType = (HikeType)comboBoxHikeType.getSelectedItem();
+                    Integer duration = (Integer)comboBoxDuration.getSelectedItem();
+                    Integer startYear = (Integer)comboBoxYear.getSelectedItem(); 
+                    Integer startMonth = getMonthFromString((String)comboBoxMonths.getSelectedItem()); 
+                    Integer startDay = (Integer)comboBoxDays.getSelectedItem();
+                    Integer numHikers = (Integer)comboBoxNumberHikers.getSelectedItem();
+    
+                    double costs = updateCost(hikeType, duration, startYear, startMonth, startDay, numHikers);                  
                     costLabel.setText(String.valueOf(costs));              
                 }   
             }
@@ -314,25 +293,36 @@ public class hw3 {
 
                             comboBoxDays.removeAllItems();
                             for (int day = 1; day <= daysInMonth; day++) {
-                                
-                                if(selectedMonth+1 == hw3.rate.getSeasonStartMonth() && day < hw3.rate.getSeasonStartDay())
-                                {
-                                    continue;
-                                }else if(selectedMonth+1 == hw3.rate.getSeasonEndMonth() && day > hw3.rate.getSeasonEndDay())
-                                {
-                                    continue;
-                                }
-                                else if(selectedYear == curr_year && selectedMonth+1 == curr_month && curr_dayOfMonth > day)
-                                {
-                                    continue;
-                                }
-
                                 comboBoxDays.addItem(Integer.valueOf(day));
+
+                                HikeType hikeType = (HikeType)comboBoxHikeType.getSelectedItem();
+                                Integer duration = (Integer)comboBoxDuration.getSelectedItem();
+                                Integer startYear = (Integer)comboBoxYear.getSelectedItem(); 
+                                Integer startMonth = getMonthFromString((String)comboBoxMonths.getSelectedItem()); 
+                                Integer startDay = Integer.valueOf(day);//(Integer)comboBoxDays.getSelectedItem();
+                                Integer numHikers = (Integer)comboBoxNumberHikers.getSelectedItem();
+                
+                                double costs = updateCost(hikeType, duration, startYear, startMonth, startDay, numHikers);  
+                                
+                                if(costs < 0){
+                                    comboBoxDays.removeItemAt(comboBoxDays.getItemCount()-1);
+                                }                               
+                            }
+
+                            if(comboBoxDays.getItemCount()>0){
+                                comboBoxDays.setSelectedIndex(0);
                             }
                         }
                     }
 
-                    double costs = updateCost(comboBoxHikeType, comboBoxDuration, comboBoxYear, comboBoxMonths, comboBoxDays, comboBoxNumberHikers);
+                    HikeType hikeType = (HikeType)comboBoxHikeType.getSelectedItem();
+                    Integer duration = (Integer)comboBoxDuration.getSelectedItem();
+                    Integer startYear = (Integer)comboBoxYear.getSelectedItem(); 
+                    Integer startMonth = getMonthFromString((String)comboBoxMonths.getSelectedItem()); 
+                    Integer startDay = (Integer)comboBoxDays.getSelectedItem();
+                    Integer numHikers = (Integer)comboBoxNumberHikers.getSelectedItem();
+    
+                    double costs = updateCost(hikeType, duration, startYear, startMonth, startDay, numHikers);  
                     costLabel.setText(String.valueOf(costs));                      
                 }   
             }
@@ -360,12 +350,29 @@ public class hw3 {
         frame.add(new JLabel("Click OK to reserve"));
         frame.add(new JButton("OK"));
 
-        comboBoxHikeType.setSelectedIndex(0);
-        comboBoxDuration.setSelectedIndex(0);
-        comboBoxYear.setSelectedIndex(0);
-        comboBoxMonths.setSelectedIndex(0);
-        comboBoxDays.setSelectedIndex(0);
-        comboBoxNumberHikers.setSelectedIndex(0);
+        if(comboBoxHikeType.getItemCount()>0){
+            comboBoxHikeType.setSelectedIndex(0);
+        }
+
+        // if(comboBoxDuration.getItemCount()>0){
+        //     comboBoxDuration.setSelectedIndex(0);
+        // }
+
+        // if(comboBoxYear.getItemCount()>0){
+        //     comboBoxYear.setSelectedIndex(0);
+        // }
+
+        // if(comboBoxMonths.getItemCount()>0){
+        //     comboBoxMonths.setSelectedIndex(0);
+        // }
+
+        // if(comboBoxDays.getItemCount()>0){
+        //     comboBoxDays.setSelectedIndex(0);
+        // }
+
+        // if(comboBoxNumberHikers.getItemCount()>0){
+        //     comboBoxNumberHikers.setSelectedIndex(0);
+        // }
 
         // Set the frame to be visible
         frame.setVisible(true);
