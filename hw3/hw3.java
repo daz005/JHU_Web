@@ -13,6 +13,9 @@ import java.time.temporal.*;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.*;
 
 // ****** Note ***** 
 // how to compile in linux terminal: javac -cp ".:./BhcUtils.jar" hw3.java
@@ -25,6 +28,13 @@ public class hw3 {
     static final String[] months = {"January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"};  
     
+    // Helper method to remove duplicated string
+    public static List<String> removeDuplicates(List<String> listWithDuplicates) {    
+        // Remove duplicates using HashSet
+        Set<String> set = new HashSet<>(listWithDuplicates);
+        List<String> listWithoutDuplicates = new ArrayList<>(set);
+        return listWithoutDuplicates;
+    }
     
     // Helper method to determine the number of days in a given month and year
     private static int getDaysInMonth(int year, int month) {
@@ -208,7 +218,7 @@ public class hw3 {
 
                     // Show a message dialog
                     JOptionPane.showMessageDialog(hw3.frame, 
-                    comboBoxDuration.getSelectedItem() + " is not an integer number, please input an integer number!", 
+                    "\""+ comboBoxDuration.getSelectedItem() + "\"" + " is not an integer number, please input an integer number!", 
                     "Error Message", JOptionPane.INFORMATION_MESSAGE);
 
                     if(comboBoxDuration.getItemCount()>0)
@@ -238,7 +248,7 @@ public class hw3 {
 
                     // Show a message dialog
                     JOptionPane.showMessageDialog(hw3.frame, 
-                    comboBoxNumberHikers.getSelectedItem() + " is not an integer number, please input an integer number!", 
+                    "\""+ comboBoxNumberHikers.getSelectedItem() + "\"" +  " is not an integer number, please input an integer number!", 
                     "Error Message", JOptionPane.INFORMATION_MESSAGE);
 
                     if(comboBoxNumberHikers.getItemCount()>0)
@@ -284,7 +294,7 @@ public class hw3 {
 
                     // Show a message dialog
                     JOptionPane.showMessageDialog(hw3.frame, 
-                    comboBoxYear.getSelectedItem() + " is not an integer number, please input an integer number!", 
+                    "\""+ comboBoxYear.getSelectedItem() + "\"" +  " is not an integer number, please input an integer number!", 
                     "Error Message", JOptionPane.INFORMATION_MESSAGE);
 
                     if(comboBoxYear.getItemCount()>0)
@@ -365,7 +375,7 @@ public class hw3 {
 
                     // Show a message dialog
                     JOptionPane.showMessageDialog(hw3.frame, 
-                    comboBoxDays.getSelectedItem() + " is not an integer number, please input an integer number!", 
+                    "\""+ comboBoxDays.getSelectedItem() + "\"" + " is not an integer number, please input an integer number!", 
                     "Error Message", JOptionPane.INFORMATION_MESSAGE);
 
                     if(comboBoxDays.getItemCount()>0)
@@ -395,98 +405,102 @@ public class hw3 {
                 if(startYear < Rates.DEFAULT_MIN_YEAR )
                 {
                     // Show a message dialog
-                    JOptionPane.showMessageDialog(hw3.frame, 
-                    startYear + " is less than the default minimum year, please select a year from the current year to the default maximum year " + Rates.DEFAULT_MIN_YEAR, 
-                    "Error Message", JOptionPane.INFORMATION_MESSAGE);      
+                    // JOptionPane.showMessageDialog(hw3.frame, 
+                    // startYear + " is less than the default minimum year, please select a year from the current year to the default maximum year " + Rates.DEFAULT_MIN_YEAR, 
+                    // "Error Message", JOptionPane.INFORMATION_MESSAGE);      
 
-                    if(comboBoxYear.getItemCount()>0)
-                    {
-                        comboBoxYear.setSelectedIndex(0);
-                    } 
-                    
-                    hasError = true;
+                    // if(comboBoxYear.getItemCount()>0)
+                    // {
+                    //     comboBoxYear.setSelectedIndex(0);
+                    // } 
                 }
                 else if(startYear > Rates.DEFAULT_MAX_YEAR )
                 {
-                    // Show a message dialog
-                    JOptionPane.showMessageDialog(hw3.frame, 
-                    startYear + " is great than the default maximum year, please select a year from the current year to the default maximum year " + Rates.DEFAULT_MAX_YEAR, 
-                    "Error Message", JOptionPane.INFORMATION_MESSAGE);      
+                    // // Show a message dialog
+                    // JOptionPane.showMessageDialog(hw3.frame, 
+                    // startYear + " is great than the default maximum year, please select a year from the current year to the default maximum year " + Rates.DEFAULT_MAX_YEAR, 
+                    // "Error Message", JOptionPane.INFORMATION_MESSAGE);      
 
-                    if(comboBoxYear.getItemCount()>0)
-                    {
-                        comboBoxYear.setSelectedIndex(0);
-                    } 
-                    
-                    hasError = true;
+                    // if(comboBoxYear.getItemCount()>0)
+                    // {
+                    //     comboBoxYear.setSelectedIndex(0);
+                    // } 
                 }
                 else if(startYear < currentYear)
                 {
                     // Show a message dialog
-                    JOptionPane.showMessageDialog(hw3.frame, 
-                    startYear + " is a past year, please select a year from the current year to the default maximum year " + Rates.DEFAULT_MAX_YEAR, 
-                    "Error Message", JOptionPane.INFORMATION_MESSAGE);      
+                    // JOptionPane.showMessageDialog(hw3.frame, 
+                    // startYear + " is a past year, please select a year from the current year to the default maximum year " + Rates.DEFAULT_MAX_YEAR, 
+                    // "Error Message", JOptionPane.INFORMATION_MESSAGE);      
 
-                    if(comboBoxYear.getItemCount()>0)
-                    {
-                        comboBoxYear.setSelectedIndex(0);
-                    }  
-                    
-                    hasError = true;
+                    // if(comboBoxYear.getItemCount()>0)
+                    // {
+                    //     comboBoxYear.setSelectedIndex(0);
+                    // }  
                 }
 
                 Integer startMonth = getMonthFromString((String)comboBoxMonths.getSelectedItem());
                 if(startMonth<1 || startMonth > months.length)
                 {
-                    // Show a message dialog
-                    JOptionPane.showMessageDialog(hw3.frame, 
-                    "no such Month name: " + comboBoxMonths.getSelectedItem(), 
-                    "Error Message", JOptionPane.INFORMATION_MESSAGE);
+                    if(comboBoxMonths.getItemCount() > 0)
+                    {
+                        // Show a message dialog
+                        JOptionPane.showMessageDialog(hw3.frame, 
+                        "no such Month name: " + "\"" + comboBoxMonths.getSelectedItem() + "\"" , 
+                        "Error Message", JOptionPane.INFORMATION_MESSAGE);
 
-                    comboBoxMonths.setSelectedIndex(0);
-                    hasError = true;
+                        comboBoxMonths.setSelectedIndex(0);
+
+                        return;
+                    }
                 }
                 
                 Integer startDay = (Integer)comboBoxDays.getSelectedItem();
                 double costs = updateCost(hikeType, duration, startYear, startMonth, startDay, numHikers); 
 
-                if(!hw3.rate.isValidDates()){
+                if(!hw3.rate.isDurationValid() || !hw3.rate.numberHikersValid() || !hw3.rate.isValidDates()){
                     // Show a message dialog
-                    JOptionPane.showMessageDialog(frame, hw3.rate.getDetails().toString(), "Error Message", JOptionPane.INFORMATION_MESSAGE);
-                    if(comboBoxYear.getItemCount()>0)
-                    {
-                        comboBoxYear.setSelectedIndex(0);
+                    JOptionPane.showMessageDialog(frame, removeDuplicates(hw3.rate.getDetails()), "Error Message", JOptionPane.INFORMATION_MESSAGE);
+                
+                    if(!hw3.rate.numberHikersValid()){
+
+                        if(comboBoxNumberHikers.getItemCount()>0)
+                        {
+                            comboBoxNumberHikers.setSelectedIndex(0);
+                        }  
                     } 
-                    hasError = true;
-                }
 
-                if(!hw3.rate.isDurationValid()){
-                    // Show a message dialog
-                    JOptionPane.showMessageDialog(frame, hw3.rate.getDetails().toString(), "Error Message", JOptionPane.INFORMATION_MESSAGE);
-                    
-                    if(comboBoxDuration.getItemCount()>0)
-                    {
-                        comboBoxDuration.setSelectedIndex(0);
-                    }  
-                    
-                    hasError = true;
-                }
+                    if(!hw3.rate.isDurationValid()){
 
-                if(!hw3.rate.numberHikersValid()){
-                    // Show a message dialog
-                    JOptionPane.showMessageDialog(frame, hw3.rate.getDetails().toString(), "Error Message", JOptionPane.INFORMATION_MESSAGE);
+                        if(comboBoxDuration.getItemCount()>0)
+                        {
+                            comboBoxDuration.setSelectedIndex(0);
+                        }                   
+                    } 
                     
-                    if(comboBoxNumberHikers.getItemCount()>0)
-                    {
-                        comboBoxNumberHikers.setSelectedIndex(0);
-                    }  
-                    
-                    hasError = true;
-                }
+                    if(!hw3.rate.isValidDates()){
+                        if(comboBoxYear.getItemCount()>0)
+                        {
+                            comboBoxYear.setSelectedIndex(0);
+                        } 
+    
+                        if(comboBoxMonths.getItemCount()>0)
+                        {
+                            comboBoxMonths.setSelectedIndex(0);
+                        }   
 
-                if(!hasError){
+                        if(comboBoxDays.getItemCount()>0)
+                        {
+                            comboBoxDays.setSelectedIndex(0);
+                        }                         
+
+                    }                   
+                    
+                }
+                else{
                     costLabel.setText(String.valueOf(costs));
                 }
+                
 
             }
         });
