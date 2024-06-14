@@ -18,10 +18,11 @@ import java.util.LinkedHashSet;
 import java.util.*;
 
 // ****** Note ***** 
-// how to compile in linux terminal: javac -cp ".:./BhcUtils.jar" hw3.java
-// how to run in linux terminal: java -cp ".:./BhcUtils.jar" hw3
+// zip file name: lastname_firstinit_hw#.zip
+// how to compile in linux terminal: javac -cp ".:./BhcUtils.jar" zhu_d_hw3.java
+// how to run in linux terminal: java -cp ".:./BhcUtils.jar" zhu_d_hw3
 
-public class hw3 {
+public class zhu_d_hw3 {
 
     static JFrame frame = null;
     static Rates rate = null;
@@ -53,9 +54,9 @@ public class hw3 {
     }
 
     private static Integer getMonthFromString(String monthStringName){
-        for(int i =0; i < hw3.months.length; i++)
+        for(int i =0; i < zhu_d_hw3.months.length; i++)
         {
-            if (hw3.months[i].equalsIgnoreCase(monthStringName))
+            if (zhu_d_hw3.months[i].equalsIgnoreCase(monthStringName))
             {
                 return Integer.valueOf(i + 1);
             }
@@ -78,7 +79,7 @@ public class hw3 {
         }
 
         //Rates rate = new Rates(hikeType);
-        rate = hw3.rate;
+        rate = zhu_d_hw3.rate;
         BookingDay beginBookingDay = new BookingDay(startYear,startMonth, startDay);
         System.out.println("beginBookingDay.isValidDate()=" + beginBookingDay.isValidDate());
         rate.setBeginDate(beginBookingDay);
@@ -110,11 +111,11 @@ public class hw3 {
 
     public static void main(String[] args) {
 
-        System.out.println("this is hw3!");
+        System.out.println("this is zhu_d_hw3!");
 
         // Create the frame
         JFrame frame = new JFrame("Quotes for Bryce Canyon Hikes");
-        hw3.frame =frame;
+        zhu_d_hw3.frame =frame;
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new GridLayout(8, 2, 10, 10));
 
@@ -159,10 +160,10 @@ public class hw3 {
             public void actionPerformed(ActionEvent e) 
             {
                 HikeType selectedItem = (HikeType) comboBoxHikeType.getSelectedItem();
-                hw3.rate = new Rates(selectedItem);
+                zhu_d_hw3.rate = new Rates(selectedItem);
                 
                 //durations:
-                int[] intArray = hw3.rate.getDurations();
+                int[] intArray = zhu_d_hw3.rate.getDurations();
                 comboBoxDuration.removeAllItems();
                 for (int i = 0; i < intArray.length; i++) {
                     Integer item = Integer.valueOf(intArray[i]);
@@ -174,7 +175,7 @@ public class hw3 {
                 }               
                 
                 //number of hikers:
-                int maxHikers = hw3.rate.getMaxHikers();
+                int maxHikers = zhu_d_hw3.rate.getMaxHikers();
                 comboBoxNumberHikers.removeAllItems();
                 for (int i = 1; i <= maxHikers; i++) {
                     Integer item = Integer.valueOf(i);
@@ -217,7 +218,7 @@ public class hw3 {
                     System.out.println("Invalid number format: " + comboBoxDuration.getSelectedItem());
 
                     // Show a message dialog
-                    JOptionPane.showMessageDialog(hw3.frame, 
+                    JOptionPane.showMessageDialog(zhu_d_hw3.frame, 
                     "\""+ comboBoxDuration.getSelectedItem() + "\"" + " is not an integer number, please input an integer number!", 
                     "Error Message", JOptionPane.INFORMATION_MESSAGE);
 
@@ -247,7 +248,7 @@ public class hw3 {
                     System.out.println("Invalid number format: " + comboBoxNumberHikers.getSelectedItem());
 
                     // Show a message dialog
-                    JOptionPane.showMessageDialog(hw3.frame, 
+                    JOptionPane.showMessageDialog(zhu_d_hw3.frame, 
                     "\""+ comboBoxNumberHikers.getSelectedItem() + "\"" +  " is not an integer number, please input an integer number!", 
                     "Error Message", JOptionPane.INFORMATION_MESSAGE);
 
@@ -276,8 +277,8 @@ public class hw3 {
                         System.out.println("selected number of year=" + selectedItem); 
 
                         comboBoxMonths.removeAllItems();
-                        for (int i = 0; i < hw3.months.length; i++) {
-                            String item = hw3.months[i];
+                        for (int i = 0; i < zhu_d_hw3.months.length; i++) {
+                            String item = zhu_d_hw3.months[i];
                             comboBoxMonths.addItem(item);
                             comboBoxMonths.setSelectedIndex(comboBoxMonths.getItemCount()-1);   
                             if(comboBoxDays.getItemCount()==0){
@@ -293,7 +294,7 @@ public class hw3 {
                     System.out.println("Invalid number format: " + comboBoxYear.getSelectedItem());
 
                     // Show a message dialog
-                    JOptionPane.showMessageDialog(hw3.frame, 
+                    JOptionPane.showMessageDialog(zhu_d_hw3.frame, 
                     "\""+ comboBoxYear.getSelectedItem() + "\"" +  " is not an integer number, please input an integer number!", 
                     "Error Message", JOptionPane.INFORMATION_MESSAGE);
 
@@ -318,8 +319,8 @@ public class hw3 {
                 if (selectedItem != null)
                 {
                     System.out.println("selected Month=" + selectedItem); 
-                    for(int i =0; i < hw3.months.length; i++){
-                        if (hw3.months[i] == selectedItem){
+                    for(int i =0; i < zhu_d_hw3.months.length; i++){
+                        if (zhu_d_hw3.months[i] == selectedItem){
                             int selectedMonth = i;
                             System.out.println("selected Month=" + selectedMonth);  
                             Integer selectedYear = (Integer) comboBoxYear.getSelectedItem();
@@ -344,7 +345,7 @@ public class hw3 {
                                 double costs = updateCost(hikeType, duration, startYear, startMonth, startDay, numHikers);  
                                 if(costs < 0){
                                     comboBoxDays.removeItemAt(comboBoxDays.getItemCount()-1);
-                                    System.out.println("rate.getDetails()=" + hw3.rate.getDetails());
+                                    System.out.println("rate.getDetails()=" + zhu_d_hw3.rate.getDetails());
                                 }    
                             }
 
@@ -374,7 +375,7 @@ public class hw3 {
                     System.out.println("Invalid number format: " + comboBoxDays.getSelectedItem());
 
                     // Show a message dialog
-                    JOptionPane.showMessageDialog(hw3.frame, 
+                    JOptionPane.showMessageDialog(zhu_d_hw3.frame, 
                     "\""+ comboBoxDays.getSelectedItem() + "\"" + " is not an integer number, please input an integer number!", 
                     "Error Message", JOptionPane.INFORMATION_MESSAGE);
 
@@ -406,7 +407,7 @@ public class hw3 {
                     if(comboBoxMonths.getItemCount() > 0)
                     {
                         // Show a message dialog
-                        JOptionPane.showMessageDialog(hw3.frame, 
+                        JOptionPane.showMessageDialog(zhu_d_hw3.frame, 
                         "no such Month name: " + "\"" + comboBoxMonths.getSelectedItem() + "\"" , 
                         "Error Message", JOptionPane.INFORMATION_MESSAGE);
 
@@ -419,11 +420,11 @@ public class hw3 {
                 Integer startDay = (Integer)comboBoxDays.getSelectedItem();
                 double costs = updateCost(hikeType, duration, startYear, startMonth, startDay, numHikers); 
 
-                if(!hw3.rate.isDurationValid() || !hw3.rate.numberHikersValid() || !hw3.rate.isValidDates()){
+                if(!zhu_d_hw3.rate.isDurationValid() || !zhu_d_hw3.rate.numberHikersValid() || !zhu_d_hw3.rate.isValidDates()){
                     // Show a message dialog
-                    JOptionPane.showMessageDialog(frame, removeDuplicates(hw3.rate.getDetails()), "Error Message", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, removeDuplicates(zhu_d_hw3.rate.getDetails()), "Error Message", JOptionPane.INFORMATION_MESSAGE);
                 
-                    if(!hw3.rate.numberHikersValid()){
+                    if(!zhu_d_hw3.rate.numberHikersValid()){
 
                         if(comboBoxNumberHikers.getItemCount()>0)
                         {
@@ -431,7 +432,7 @@ public class hw3 {
                         }  
                     } 
 
-                    if(!hw3.rate.isDurationValid()){
+                    if(!zhu_d_hw3.rate.isDurationValid()){
 
                         if(comboBoxDuration.getItemCount()>0)
                         {
@@ -439,7 +440,7 @@ public class hw3 {
                         }                   
                     } 
                     
-                    if(!hw3.rate.isValidDates()){
+                    if(!zhu_d_hw3.rate.isValidDates()){
                         if(comboBoxYear.getItemCount()>0)
                         {
                             comboBoxYear.setSelectedIndex(0);
