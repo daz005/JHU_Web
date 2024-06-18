@@ -1,0 +1,85 @@
+Creating a JAR (Java ARchive) file in the command line involves a few steps. Here is a step-by-step guide on how to compile your Java code and package it into a JAR file:
+
+### 1. Compile Java Source Files
+First, ensure that your Java source files are compiled into `.class` files.
+
+```sh
+javac -d bin src/com/example/*.java
+```
+
+In this command:
+- `-d bin` specifies the output directory for the compiled class files.
+- `src/com/example/*.java` specifies the location of your source files.
+
+### 2. Create a Manifest File (Optional)
+A manifest file can be used to specify meta-information about the JAR file. For example, it can specify the main class to run when the JAR file is executed. Create a file named `manifest.txt` with the following content:
+
+```
+Main-Class: com.example.MainClass
+```
+
+Replace `com.example.MainClass` with the fully qualified name of your main class.
+
+### 3. Package the JAR File
+Use the `jar` command to create the JAR file. You can include the manifest file if you have one.
+
+#### Without Manifest File:
+```sh
+jar cf myapp.jar -C bin .
+```
+
+#### With Manifest File:
+```sh
+jar cfm myapp.jar manifest.txt -C bin .
+```
+
+In these commands:
+- `c` creates a new JAR file.
+- `f` specifies the JAR file name.
+- `m` specifies the manifest file (if used).
+- `-C bin .` changes to the `bin` directory and includes all files in the JAR.
+
+### Example Structure
+
+Assume your project directory structure is as follows:
+```
+project/
+├── src/
+│   └── com/
+│       └── example/
+│           └── MainClass.java
+├── bin/
+│   └── com/
+│       └── example/
+│           └── MainClass.class
+├── manifest.txt
+```
+
+### Complete Example
+
+1. **Navigate to your project directory**:
+   ```sh
+   cd project
+   ```
+
+2. **Compile the Java files**:
+   ```sh
+   javac -d bin src/com/example/*.java
+   ```
+
+3. **Create the JAR file**:
+   ```sh
+   jar cfm myapp.jar manifest.txt -C bin .
+   ```
+
+### Running the JAR File
+
+To run the JAR file from the command line, use the `java -jar` command:
+
+```sh
+java -jar myapp.jar
+```
+
+This will execute the main class specified in your `manifest.txt`.
+
+By following these steps, you can compile your Java source files and package them into a JAR file using the command line.

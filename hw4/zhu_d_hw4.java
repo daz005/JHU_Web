@@ -40,6 +40,8 @@ public class zhu_d_hw4 extends zhu_d_hw3{
     @Override
     protected double getCost()
     {
+        double cost = 0;
+
         GregorianCalendar startDate = rateObj.getBeginDate();
         GregorianCalendar endDate = rateObj.getEndDate();
 
@@ -93,13 +95,12 @@ public class zhu_d_hw4 extends zhu_d_hw3{
                 String[] parts = response.split(delimiter);
 
                 // Print the results
-                String cost = parts[0];
                 for (int i=0; i <parts.length;i++) 
                 {
                     System.out.println(parts[i]);
                 }
 
-                return Double.parseDouble(cost);
+                cost = Double.parseDouble(parts[0]);
     
             } 
             catch (Exception e) 
@@ -107,8 +108,9 @@ public class zhu_d_hw4 extends zhu_d_hw3{
                 System.out.println("*****************************************************: ");
                 e.printStackTrace();
 
-                return 0.01;
+                cost = - 0.01;
             }
+        return cost;
     }
 }
 
