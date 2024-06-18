@@ -16,7 +16,7 @@ import java.util.*;
 
 // ****** Note ***** 
 // zip file name: lastname_firstinit_hw#.zip
-// how to compile in linux terminal: javac -cp ".:./BhcUtils.jar" zhu_d_hw3.java helper.java 
+// how to compile in linux terminal: javac -cp ".:./BhcUtils.jar" main.java zhu_d_hw3.java helper.java 
 // how to run in linux terminal: java -cp ".:./BhcUtils.jar" zhu_d_hw3
 
 public class zhu_d_hw3 {
@@ -36,12 +36,6 @@ public class zhu_d_hw3 {
     public zhu_d_hw3()
     {
 
-    }
-
-    public static void main(String[] args) 
-    {
-        zhu_d_hw3 hw4 = new zhu_d_hw3();
-        hw4.createUI();
     }
 
     public void createUI()
@@ -438,7 +432,7 @@ public class zhu_d_hw3 {
 
     }
 
-    private double updateCost( HikeType hikeType,
+    protected double updateCost( HikeType hikeType,
         Integer duration,
         Integer startYear, 
         Integer startMonth,
