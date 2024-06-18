@@ -1,3 +1,5 @@
+
+
 import javax.swing.border.EmptyBorder;
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +16,7 @@ import java.util.*;
 
 // ****** Note ***** 
 // zip file name: lastname_firstinit_hw#.zip
-// how to compile in linux terminal: javac -cp ".:./BhcUtils.jar" zhu_d_hw4.java
+// how to compile in linux terminal: javac -cp ".:./BhcUtils.jar" zhu_d_hw4.java helper.java 
 // how to run in linux terminal: java -cp ".:./BhcUtils.jar" zhu_d_hw4
 
 public class zhu_d_hw4 {
@@ -246,8 +248,8 @@ public class zhu_d_hw4 {
                         System.out.println("selected number of year=" + selectedItem); 
 
                         comboBoxMonths.removeAllItems();
-                        for (int i = 0; i < zhu_d_hw4.months.length; i++) {
-                            String item = zhu_d_hw4.months[i];
+                        for (int i = 0; i < helper.months.length; i++) {
+                            String item = helper.months[i];
                             comboBoxMonths.addItem(item);
                             comboBoxMonths.setSelectedIndex(comboBoxMonths.getItemCount()-1);   
                             if(comboBoxDays.getItemCount()==0){
@@ -288,12 +290,12 @@ public class zhu_d_hw4 {
                 if (selectedItem != null)
                 {
                     System.out.println("selected Month=" + selectedItem); 
-                    for(int i =0; i < zhu_d_hw4.months.length; i++){
-                        if (zhu_d_hw4.months[i] == selectedItem){
+                    for(int i =0; i < helper.months.length; i++){
+                        if (helper.months[i] == selectedItem){
                             int selectedMonth = i;
                             System.out.println("selected Month=" + selectedMonth);  
                             Integer selectedYear = (Integer) comboBoxYear.getSelectedItem();
-                            int daysInMonth = getDaysInMonth(selectedYear, selectedMonth);
+                            int daysInMonth = helper.getDaysInMonth(selectedYear, selectedMonth);
 
                             YearMonth result = YearMonth.now(); 
                             int curr_year = result.getYear();
@@ -307,7 +309,7 @@ public class zhu_d_hw4 {
                                 HikeType hikeType = (HikeType)comboBoxHikeType.getSelectedItem();
                                 Integer duration = (Integer)comboBoxDuration.getSelectedItem();
                                 Integer startYear = (Integer)comboBoxYear.getSelectedItem(); 
-                                Integer startMonth = getMonthFromString((String)comboBoxMonths.getSelectedItem()); 
+                                Integer startMonth = helper.getMonthFromString((String)comboBoxMonths.getSelectedItem()); 
                                 Integer startDay = Integer.valueOf(day);//(Integer)comboBoxDays.getSelectedItem();
                                 Integer numHikers = (Integer)comboBoxNumberHikers.getSelectedItem();
                 
@@ -370,8 +372,8 @@ public class zhu_d_hw4 {
                 Integer duration = (Integer)comboBoxDuration.getSelectedItem();
                 Integer numHikers = (Integer)comboBoxNumberHikers.getSelectedItem();
                 Integer startYear = (Integer)comboBoxYear.getSelectedItem(); 
-                Integer startMonth = getMonthFromString((String)comboBoxMonths.getSelectedItem());
-                if(startMonth<1 || startMonth > months.length)
+                Integer startMonth = helper.getMonthFromString((String)comboBoxMonths.getSelectedItem());
+                if(startMonth<1 || startMonth > helper.months.length)
                 {
                     if(comboBoxMonths.getItemCount() > 0)
                     {
@@ -391,7 +393,7 @@ public class zhu_d_hw4 {
 
                 if(!rateObj.isDurationValid() || !rateObj.numberHikersValid() || !rateObj.isValidDates()){
                     // Show a message dialog
-                    JOptionPane.showMessageDialog(frameObj, removeDuplicates(rateObj.getDetails()), "Error Message", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(frameObj, helper.removeDuplicates(rateObj.getDetails()), "Error Message", JOptionPane.INFORMATION_MESSAGE);
                 
                     if(!rateObj.numberHikersValid()){
 
@@ -434,55 +436,6 @@ public class zhu_d_hw4 {
             }
         });
 
-    }
-
-
-    static final String[] months = {"January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"};  
-    
-    // Helper method to remove duplicated string
-    public static List<String> removeDuplicates(List<String> listWithDuplicates) 
-    {    
-        // Remove duplicates using HashSet
-        Set<String> set = new HashSet<>(listWithDuplicates);
-        List<String> listWithoutDuplicates = new ArrayList<>(set);
-
-        return listWithoutDuplicates;
-    }
-    
-    // Helper method to determine the number of days in a given month and year
-    private static int getDaysInMonth(int year, int month) 
-    {
-        switch (month) 
-        {
-            case 1: // February
-                if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) 
-                {
-                    return 29; // Leap year
-                } 
-                else 
-                {
-                    return 28;
-                }
-            case 3: case 5: case 8: case 10: // April, June, September, November
-                return 30;
-            default: // January, March, May, July, August, October, December
-                return 31;
-        }
-    }
-
-    private static Integer getMonthFromString(String monthStringName){
-        for(int i =0; i < zhu_d_hw4.months.length; i++)
-        {
-            if (zhu_d_hw4.months[i].equalsIgnoreCase(monthStringName))
-            {
-                return Integer.valueOf(i + 1);
-            }
-        }
-
-        System.out.println("monthStringName=" + monthStringName);
-
-        return Integer.valueOf(-1);
     }
 
     private double updateCost( HikeType hikeType,
@@ -528,8 +481,6 @@ public class zhu_d_hw4 {
 
         return rateObj.getCost();
     }
-
-
 
 }
 
