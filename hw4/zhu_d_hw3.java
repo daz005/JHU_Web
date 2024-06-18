@@ -21,7 +21,7 @@ import java.util.*;
 
 public class zhu_d_hw3 {
 
-    private Rates rateObj = null;
+    protected Rates rateObj = null;
 
     private JFrame frameObj = null;
     private JComboBox<HikeType> comboBoxHikeType;
@@ -313,10 +313,10 @@ public class zhu_d_hw3 {
                                 Integer startDay = Integer.valueOf(day);//(Integer)comboBoxDays.getSelectedItem();
                                 Integer numHikers = (Integer)comboBoxNumberHikers.getSelectedItem();
                 
-                                double costs = updateCost(hikeType, duration, startYear, startMonth, startDay, numHikers);  
-                                if(costs < 0){
+                                //double costs = updateCost(hikeType, duration, startYear, startMonth, startDay, numHikers);  
+                                if(!updateCost(hikeType, duration, startYear, startMonth, startDay, numHikers)){
                                     comboBoxDays.removeItemAt(comboBoxDays.getItemCount()-1);
-                                    System.out.println("rateObj.getDetails()=" + rateObj.getDetails());
+                                    //System.out.println("rateObj.getDetails()=" + rateObj.getDetails());
                                 }    
                             }
 
@@ -389,9 +389,9 @@ public class zhu_d_hw3 {
                 }
                 
                 Integer startDay = (Integer)comboBoxDays.getSelectedItem();
-                double costs = updateCost(hikeType, duration, startYear, startMonth, startDay, numHikers); 
+                //double costs = updateCost(hikeType, duration, startYear, startMonth, startDay, numHikers); 
 
-                if(!rateObj.isDurationValid() || !rateObj.numberHikersValid() || !rateObj.isValidDates()){
+                if(!updateCost(hikeType, duration, startYear, startMonth, startDay, numHikers)){
                     // Show a message dialog
                     JOptionPane.showMessageDialog(frameObj, helper.removeDuplicates(rateObj.getDetails()), "Error Message", JOptionPane.INFORMATION_MESSAGE);
                 
@@ -431,14 +431,19 @@ public class zhu_d_hw3 {
                     
                 }
                 else{
-                    costLabel.setText(String.valueOf(costs));
+                    costLabel.setText(String.valueOf(getCost()));
                 }
             }
         });
 
     }
 
-    protected double updateCost( HikeType hikeType,
+    protected double getCost()
+    {
+        return rateObj.getCost();
+    }
+
+    private boolean updateCost( HikeType hikeType,
         Integer duration,
         Integer startYear, 
         Integer startMonth,
@@ -450,7 +455,8 @@ public class zhu_d_hw3 {
         numHikers==null)
         {
             System.out.println("something wrong here!!!");
-            return 0.02;
+            //return 0.02;
+            return false;
         }
 
         BookingDay beginBookingDay = new BookingDay(startYear,startMonth, startDay);
@@ -477,9 +483,11 @@ public class zhu_d_hw3 {
         formattedDate = dateFormat.format(endDate.getTime());
         System.out.println("end date: " + formattedDate);
 
-        System.out.println("rateObj.getDetails()=" + rateObj.getDetails());
+        //System.out.println("rateObj.getDetails()=" + rateObj.getDetails());
 
-        return rateObj.getCost();
+        //return rateObj.getCost();
+
+        return rateObj.isValidDates() && rateObj.isDurationValid() && rateObj.numberHikersValid();
     }
 
 }
