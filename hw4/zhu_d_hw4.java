@@ -29,7 +29,9 @@ import java.net.Socket;
 public class zhu_d_hw4 extends zhu_d_hw3{
 
     final static String delimiter = "&";
-    
+    final static String serverAddress = "web6.jhuep.com";
+    final static int port = 20025;
+
     public zhu_d_hw4()
     {
 
@@ -38,11 +40,6 @@ public class zhu_d_hw4 extends zhu_d_hw3{
     @Override
     protected double getCost()
     {
-        //return rateObj.getCost();
-   
-        String serverAddress = "web6.jhuep.com";
-        int port = 20025;
-
         GregorianCalendar startDate = rateObj.getBeginDate();
         GregorianCalendar endDate = rateObj.getEndDate();
 
@@ -52,10 +49,7 @@ public class zhu_d_hw4 extends zhu_d_hw3{
         int dayOfMonth = startDate.get(Calendar.DAY_OF_MONTH);
         int duration_in_days = helper.calculateDifferenceInDays(startDate, endDate) + 1;
 
-        
-        
         // Data to be sent to the server
-        
         String hikeId = "0";
         HikeType[] hikeTypes = HikeType.values();
         for(int i=0; i< hikeTypes.length; i++)
@@ -87,7 +81,6 @@ public class zhu_d_hw4 extends zhu_d_hw3{
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))
             ) 
             {
-
                 // Send data to the server
                 out.println(dataToSend);
     

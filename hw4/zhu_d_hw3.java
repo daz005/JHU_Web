@@ -70,12 +70,12 @@ public class zhu_d_hw3 {
         label.setBorder(new EmptyBorder(10, 10, 10, 10)); // 10px margins on all sides
         frameObj.add(comboBoxHikeType);
 
-        label= new JLabel("Please select or input the duration:");
+        label= new JLabel("Please select the duration:");
         frameObj.add(label);
         label.setBorder(new EmptyBorder(10, 10, 10, 10)); // 10px margins on all sides
         frameObj.add(comboBoxDuration);
 
-        label= new JLabel("Please select or input the start year:");
+        label= new JLabel("Please select the start year:");
         frameObj.add(label);
         label.setBorder(new EmptyBorder(10, 10, 10, 10)); // 10px margins on all sides       
         frameObj.add(comboBoxYear);
@@ -85,12 +85,12 @@ public class zhu_d_hw3 {
         label.setBorder(new EmptyBorder(10, 10, 10, 10)); // 10px margins on all sides        
         frameObj.add(comboBoxMonths);
 
-        label= new JLabel("Please select or input the start day of the month:");
+        label= new JLabel("Please select the start day of the month:");
         frameObj.add(label);
         label.setBorder(new EmptyBorder(10, 10, 10, 10)); // 10px margins on all sides         
         frameObj.add(comboBoxDays);
 
-        label= new JLabel("Please select or input the number of hikers:");
+        label= new JLabel("Please select the number of hikers:");
         frameObj.add(label);
         label.setBorder(new EmptyBorder(10, 10, 10, 10)); // 10px margins on all sides            
         frameObj.add(comboBoxNumberHikers);
