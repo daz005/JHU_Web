@@ -1,5 +1,4 @@
 
-import java.util.List;
 import java.util.*;
 
 public class helper {
@@ -50,6 +49,20 @@ public class helper {
         System.out.println("monthStringName=" + monthStringName);
 
         return Integer.valueOf(-1);
+    }
+
+    public static int calculateDifferenceInDays(GregorianCalendar startDate, GregorianCalendar endDate) {
+        // Convert GregorianCalendar to Date
+        long startMillis = startDate.getTimeInMillis();
+        long endMillis = endDate.getTimeInMillis();
+
+        // Calculate the difference in milliseconds
+        long differenceInMillis = endMillis - startMillis;
+
+        // Convert the difference from milliseconds to days
+        int differenceInDays = (int)(differenceInMillis / (24 * 60 * 60 * 1000));
+
+        return differenceInDays;
     }
 
 }

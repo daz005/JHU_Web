@@ -22,6 +22,7 @@ import java.util.*;
 public class zhu_d_hw3 {
 
     protected Rates rateObj = null;
+    protected HikeType hikeType = null;
 
     private JFrame frameObj = null;
     private JComboBox<HikeType> comboBoxHikeType;
@@ -130,8 +131,8 @@ public class zhu_d_hw3 {
             @Override
             public void actionPerformed(ActionEvent e) 
             {
-                HikeType selectedItem = (HikeType) comboBoxHikeType.getSelectedItem();
-                rateObj = new Rates(selectedItem);
+                hikeType = (HikeType) comboBoxHikeType.getSelectedItem();
+                rateObj = new Rates(hikeType);
                 
                 //durations:
                 int[] intArray = rateObj.getDurations();
