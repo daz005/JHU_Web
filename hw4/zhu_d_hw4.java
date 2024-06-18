@@ -3,18 +3,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 import edu.jhu.en605681.BookingDay;
 import edu.jhu.en605681.HikeType;
 import edu.jhu.en605681.Rates;
 import java.time.*; 
-import java.time.temporal.*;  
-import java.util.Calendar;
+import java.time.temporal.*;
 import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
-import java.util.Arrays;
-import java.util.LinkedHashSet;
 import java.util.*;
 
 // ****** Note ***** 
@@ -24,134 +19,108 @@ import java.util.*;
 
 public class zhu_d_hw4 {
 
-    static JFrame frame = null;
-    static Rates rate = null;
-    static final String[] months = {"January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"};  
-    
-    // Helper method to remove duplicated string
-    public static List<String> removeDuplicates(List<String> listWithDuplicates) {    
-        // Remove duplicates using HashSet
-        Set<String> set = new HashSet<>(listWithDuplicates);
-        List<String> listWithoutDuplicates = new ArrayList<>(set);
-        return listWithoutDuplicates;
-    }
-    
-    // Helper method to determine the number of days in a given month and year
-    private static int getDaysInMonth(int year, int month) {
-        switch (month) {
-            case 1: // February
-                if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
-                    return 29; // Leap year
-                } else {
-                    return 28;
-                }
-            case 3: case 5: case 8: case 10: // April, June, September, November
-                return 30;
-            default: // January, March, May, July, August, October, December
-                return 31;
-        }
+    private Rates rateObj = null;
+
+    private JFrame frameObj = null;
+    private JComboBox<HikeType> comboBoxHikeType;
+    private JComboBox<Integer> comboBoxDuration;
+    private JComboBox<Integer> comboBoxNumberHikers; 
+    private JComboBox<Integer> comboBoxYear;
+    private JComboBox<String> comboBoxMonths;
+    private JComboBox<Integer> comboBoxDays;
+    private JButton submitButon;
+    private JLabel costLabel;
+
+    public zhu_d_hw4()
+    {
+
     }
 
-    private static Integer getMonthFromString(String monthStringName){
-        for(int i =0; i < zhu_d_hw3.months.length; i++)
-        {
-            if (zhu_d_hw3.months[i].equalsIgnoreCase(monthStringName))
-            {
-                return Integer.valueOf(i + 1);
-            }
-        }
-
-        System.out.println("monthStringName=" + monthStringName);
-
-        return Integer.valueOf(-1);
+    public static void main(String[] args) 
+    {
+        zhu_d_hw4 hw4 = new zhu_d_hw4();
+        hw4.createUI();
     }
 
-    private static double updateCost( 
-        HikeType hikeType,Integer duration,Integer startYear, Integer startMonth,Integer startDay,Integer numHikers
-    ){
-        if(hikeType==null || duration==null || 
-        startYear==null || startMonth==null || startDay==null || 
-        numHikers==null)
-        {
-            System.out.println("something wrong here!!!");
-            return 0.02;
-        }
-
-        //Rates rate = new Rates(hikeType);
-        rate = zhu_d_hw3.rate;
-        BookingDay beginBookingDay = new BookingDay(startYear,startMonth, startDay);
-        System.out.println("beginBookingDay.isValidDate()=" + beginBookingDay.isValidDate());
-        rate.setBeginDate(beginBookingDay);
-        rate.setDuration(duration);
-        rate.setNumberHikers(numHikers);
-
-        BookingDay endBookingDay = rate.getEndBookingDay();
-        System.out.println("endBookingDay.isValidDate()=" + endBookingDay.isValidDate());
-        System.out.println("rate.isValidDates()=" + rate.isValidDates());
-        System.out.println("rate.isDurationValid()=" + rate.isDurationValid());
-        System.out.println("rate.numberHikersValid()=" + rate.numberHikersValid());
-        
-        GregorianCalendar beginDate = rate.getBeginDate();
-        GregorianCalendar endDate = rate.getEndDate();
-        // Define the date format
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-        // Format the date
-        String formattedDate = dateFormat.format(beginDate.getTime());
-        // Print the formatted date
-        System.out.println("begin date: " + formattedDate);
-        formattedDate = dateFormat.format(endDate.getTime());
-        System.out.println("end date: " + formattedDate);
-
-        System.out.println("rate.getDetails()=" + rate.getDetails());
-
-        return rate.getCost();
-    }
-
-    public static void main(String[] args) {
-
-        System.out.println("this is zhu_d_hw3!");
-
+    public void createUI()
+    {
         // Create the frame
-        JFrame frame = new JFrame("Quotes for Bryce Canyon Hikes");
-        zhu_d_hw3.frame =frame;
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new GridLayout(8, 2, 10, 10));
+        frameObj = new JFrame("Quotes for Bryce Canyon Hikes");
+        frameObj.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameObj.setLayout(new GridLayout(8, 2, 10, 10));
 
-        // Create the drop-down list (JComboBox) for hikeTypes:
+        // Create the drop-down list (JComboBox) for hikeTypes, duration, number of hikers, 
+        // year, Months, days of the month:
         HikeType[] hikeTypes = HikeType.values();
-        JComboBox<HikeType> comboBoxHikeType = new JComboBox<>(hikeTypes);
+        comboBoxHikeType = new JComboBox<>(hikeTypes);
+        comboBoxDuration = new JComboBox<>();
+        comboBoxNumberHikers = new JComboBox<>(); 
+        comboBoxYear = new JComboBox<>();
+        comboBoxMonths = new JComboBox<>();
+        comboBoxDays = new JComboBox<>();
+        submitButon = new JButton("Submit");
+        costLabel = new JLabel("");
 
-        // Create the drop-down list (JComboBox) for duration:
-        JComboBox<Integer> comboBoxDuration = new JComboBox<>();
-        // Make the JComboBox editable
-        comboBoxDuration.setEditable(true);
+        // Add components to the frame
+        JLabel label= new JLabel("Please select hike:");
+        frameObj.add(label);
+        label.setBorder(new EmptyBorder(10, 10, 10, 10)); // 10px margins on all sides
+        frameObj.add(comboBoxHikeType);
 
-        // Create the drop-down list (JComboBox) for number of hikers:
-        JComboBox<Integer> comboBoxNumberHikers = new JComboBox<>(); 
-         // Make the JComboBox editable
-         comboBoxNumberHikers.setEditable(true);          
+        label= new JLabel("Please select or input the duration:");
+        frameObj.add(label);
+        label.setBorder(new EmptyBorder(10, 10, 10, 10)); // 10px margins on all sides
+        frameObj.add(comboBoxDuration);
 
-        // Create the JComboBox for year
-        JComboBox<Integer> comboBoxYear = new JComboBox<>();
-        // Make the JComboBox editable
-        comboBoxYear.setEditable(true); 
+        label= new JLabel("Please select or input the start year:");
+        frameObj.add(label);
+        label.setBorder(new EmptyBorder(10, 10, 10, 10)); // 10px margins on all sides       
+        frameObj.add(comboBoxYear);
 
-        // Create the JComboBox for Months
-        JComboBox<String> comboBoxMonths = new JComboBox<>();
-        // Make the JComboBox editable
-        comboBoxMonths.setEditable(true); 
+        label= new JLabel("Plese select the start month:");
+        frameObj.add(label);
+        label.setBorder(new EmptyBorder(10, 10, 10, 10)); // 10px margins on all sides        
+        frameObj.add(comboBoxMonths);
 
-        // Create the JComboBox for days of the month
-        JComboBox<Integer> comboBoxDays = new JComboBox<>();
-        // Make the JComboBox editable
-        comboBoxDays.setEditable(true); 
+        label= new JLabel("Please select or input the start day of the month:");
+        frameObj.add(label);
+        label.setBorder(new EmptyBorder(10, 10, 10, 10)); // 10px margins on all sides         
+        frameObj.add(comboBoxDays);
 
-        JButton submitButon = new JButton("Submit");
+        label= new JLabel("Please select or input the number of hikers:");
+        frameObj.add(label);
+        label.setBorder(new EmptyBorder(10, 10, 10, 10)); // 10px margins on all sides            
+        frameObj.add(comboBoxNumberHikers);
 
-        // Create a label to display the cost
-        JLabel costLabel = new JLabel("");
+        label= new JLabel("Click Submit button to get quote:");
+        frameObj.add(label);
+        label.setBorder(new EmptyBorder(10, 10, 10, 10)); // 10px margins on all sides 
+        frameObj.add(submitButon);
+
+        label= new JLabel("Cost:");
+        frameObj.add(label);
+        label.setBorder(new EmptyBorder(10, 10, 10, 10)); // 10px margins on all sides         
+        frameObj.add(costLabel);
+
+        addActionListeners();
+
+        if(comboBoxHikeType.getItemCount()>0){
+            comboBoxHikeType.setSelectedIndex(0);
+        }
+
+        // Pack the frame to fit the components
+        frameObj.pack();
+
+        // Center the frame on the screen
+        frameObj.setLocationRelativeTo(null);
+
+        // Set the frame to be visible
+        frameObj.setVisible(true);      
+    }
+
+    private void addActionListeners()
+    {
+        JFrame frameObj = this.frameObj;
 
         // Add an action listener to handle item selection
         comboBoxHikeType.addActionListener(new ActionListener() 
@@ -160,10 +129,10 @@ public class zhu_d_hw4 {
             public void actionPerformed(ActionEvent e) 
             {
                 HikeType selectedItem = (HikeType) comboBoxHikeType.getSelectedItem();
-                zhu_d_hw3.rate = new Rates(selectedItem);
+                rateObj = new Rates(selectedItem);
                 
                 //durations:
-                int[] intArray = zhu_d_hw3.rate.getDurations();
+                int[] intArray = rateObj.getDurations();
                 comboBoxDuration.removeAllItems();
                 for (int i = 0; i < intArray.length; i++) {
                     Integer item = Integer.valueOf(intArray[i]);
@@ -175,7 +144,7 @@ public class zhu_d_hw4 {
                 }               
                 
                 //number of hikers:
-                int maxHikers = zhu_d_hw3.rate.getMaxHikers();
+                int maxHikers = rateObj.getMaxHikers();
                 comboBoxNumberHikers.removeAllItems();
                 for (int i = 1; i <= maxHikers; i++) {
                     Integer item = Integer.valueOf(i);
@@ -218,7 +187,7 @@ public class zhu_d_hw4 {
                     System.out.println("Invalid number format: " + comboBoxDuration.getSelectedItem());
 
                     // Show a message dialog
-                    JOptionPane.showMessageDialog(zhu_d_hw3.frame, 
+                    JOptionPane.showMessageDialog(frameObj, 
                     "\""+ comboBoxDuration.getSelectedItem() + "\"" + " is not an integer number, please input an integer number!", 
                     "Error Message", JOptionPane.INFORMATION_MESSAGE);
 
@@ -248,7 +217,7 @@ public class zhu_d_hw4 {
                     System.out.println("Invalid number format: " + comboBoxNumberHikers.getSelectedItem());
 
                     // Show a message dialog
-                    JOptionPane.showMessageDialog(zhu_d_hw3.frame, 
+                    JOptionPane.showMessageDialog(frameObj, 
                     "\""+ comboBoxNumberHikers.getSelectedItem() + "\"" +  " is not an integer number, please input an integer number!", 
                     "Error Message", JOptionPane.INFORMATION_MESSAGE);
 
@@ -277,8 +246,8 @@ public class zhu_d_hw4 {
                         System.out.println("selected number of year=" + selectedItem); 
 
                         comboBoxMonths.removeAllItems();
-                        for (int i = 0; i < zhu_d_hw3.months.length; i++) {
-                            String item = zhu_d_hw3.months[i];
+                        for (int i = 0; i < zhu_d_hw4.months.length; i++) {
+                            String item = zhu_d_hw4.months[i];
                             comboBoxMonths.addItem(item);
                             comboBoxMonths.setSelectedIndex(comboBoxMonths.getItemCount()-1);   
                             if(comboBoxDays.getItemCount()==0){
@@ -294,7 +263,7 @@ public class zhu_d_hw4 {
                     System.out.println("Invalid number format: " + comboBoxYear.getSelectedItem());
 
                     // Show a message dialog
-                    JOptionPane.showMessageDialog(zhu_d_hw3.frame, 
+                    JOptionPane.showMessageDialog(frameObj, 
                     "\""+ comboBoxYear.getSelectedItem() + "\"" +  " is not an integer number, please input an integer number!", 
                     "Error Message", JOptionPane.INFORMATION_MESSAGE);
 
@@ -319,8 +288,8 @@ public class zhu_d_hw4 {
                 if (selectedItem != null)
                 {
                     System.out.println("selected Month=" + selectedItem); 
-                    for(int i =0; i < zhu_d_hw3.months.length; i++){
-                        if (zhu_d_hw3.months[i] == selectedItem){
+                    for(int i =0; i < zhu_d_hw4.months.length; i++){
+                        if (zhu_d_hw4.months[i] == selectedItem){
                             int selectedMonth = i;
                             System.out.println("selected Month=" + selectedMonth);  
                             Integer selectedYear = (Integer) comboBoxYear.getSelectedItem();
@@ -345,7 +314,7 @@ public class zhu_d_hw4 {
                                 double costs = updateCost(hikeType, duration, startYear, startMonth, startDay, numHikers);  
                                 if(costs < 0){
                                     comboBoxDays.removeItemAt(comboBoxDays.getItemCount()-1);
-                                    System.out.println("rate.getDetails()=" + zhu_d_hw3.rate.getDetails());
+                                    System.out.println("rateObj.getDetails()=" + rateObj.getDetails());
                                 }    
                             }
 
@@ -375,7 +344,7 @@ public class zhu_d_hw4 {
                     System.out.println("Invalid number format: " + comboBoxDays.getSelectedItem());
 
                     // Show a message dialog
-                    JOptionPane.showMessageDialog(zhu_d_hw3.frame, 
+                    JOptionPane.showMessageDialog(frameObj, 
                     "\""+ comboBoxDays.getSelectedItem() + "\"" + " is not an integer number, please input an integer number!", 
                     "Error Message", JOptionPane.INFORMATION_MESSAGE);
 
@@ -407,7 +376,7 @@ public class zhu_d_hw4 {
                     if(comboBoxMonths.getItemCount() > 0)
                     {
                         // Show a message dialog
-                        JOptionPane.showMessageDialog(zhu_d_hw3.frame, 
+                        JOptionPane.showMessageDialog(frameObj, 
                         "no such Month name: " + "\"" + comboBoxMonths.getSelectedItem() + "\"" , 
                         "Error Message", JOptionPane.INFORMATION_MESSAGE);
 
@@ -420,11 +389,11 @@ public class zhu_d_hw4 {
                 Integer startDay = (Integer)comboBoxDays.getSelectedItem();
                 double costs = updateCost(hikeType, duration, startYear, startMonth, startDay, numHikers); 
 
-                if(!zhu_d_hw3.rate.isDurationValid() || !zhu_d_hw3.rate.numberHikersValid() || !zhu_d_hw3.rate.isValidDates()){
+                if(!rateObj.isDurationValid() || !rateObj.numberHikersValid() || !rateObj.isValidDates()){
                     // Show a message dialog
-                    JOptionPane.showMessageDialog(frame, removeDuplicates(zhu_d_hw3.rate.getDetails()), "Error Message", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(frameObj, removeDuplicates(rateObj.getDetails()), "Error Message", JOptionPane.INFORMATION_MESSAGE);
                 
-                    if(!zhu_d_hw3.rate.numberHikersValid()){
+                    if(!rateObj.numberHikersValid()){
 
                         if(comboBoxNumberHikers.getItemCount()>0)
                         {
@@ -432,7 +401,7 @@ public class zhu_d_hw4 {
                         }  
                     } 
 
-                    if(!zhu_d_hw3.rate.isDurationValid()){
+                    if(!rateObj.isDurationValid()){
 
                         if(comboBoxDuration.getItemCount()>0)
                         {
@@ -440,7 +409,7 @@ public class zhu_d_hw4 {
                         }                   
                     } 
                     
-                    if(!zhu_d_hw3.rate.isValidDates()){
+                    if(!rateObj.isValidDates()){
                         if(comboBoxYear.getItemCount()>0)
                         {
                             comboBoxYear.setSelectedIndex(0);
@@ -465,62 +434,102 @@ public class zhu_d_hw4 {
             }
         });
 
-        // Add components to the frame
-        JLabel label= new JLabel("Please select hike:");
-        frame.add(label);
-        label.setBorder(new EmptyBorder(10, 10, 10, 10)); // 10px margins on all sides
-        frame.add(comboBoxHikeType);
+    }
 
-        label= new JLabel("Please select or input the duration:");
-        frame.add(label);
-        label.setBorder(new EmptyBorder(10, 10, 10, 10)); // 10px margins on all sides
-        frame.add(comboBoxDuration);
 
-        label= new JLabel("Please select or input the start year:");
-        frame.add(label);
-        label.setBorder(new EmptyBorder(10, 10, 10, 10)); // 10px margins on all sides       
-        frame.add(comboBoxYear);
+    static final String[] months = {"January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"};  
+    
+    // Helper method to remove duplicated string
+    public static List<String> removeDuplicates(List<String> listWithDuplicates) 
+    {    
+        // Remove duplicates using HashSet
+        Set<String> set = new HashSet<>(listWithDuplicates);
+        List<String> listWithoutDuplicates = new ArrayList<>(set);
 
-        label= new JLabel("Plese select the start month:");
-        frame.add(label);
-        label.setBorder(new EmptyBorder(10, 10, 10, 10)); // 10px margins on all sides        
-        frame.add(comboBoxMonths);
+        return listWithoutDuplicates;
+    }
+    
+    // Helper method to determine the number of days in a given month and year
+    private static int getDaysInMonth(int year, int month) 
+    {
+        switch (month) 
+        {
+            case 1: // February
+                if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) 
+                {
+                    return 29; // Leap year
+                } 
+                else 
+                {
+                    return 28;
+                }
+            case 3: case 5: case 8: case 10: // April, June, September, November
+                return 30;
+            default: // January, March, May, July, August, October, December
+                return 31;
+        }
+    }
 
-      
-        label= new JLabel("Please select or input the start day of the month:");
-        frame.add(label);
-        label.setBorder(new EmptyBorder(10, 10, 10, 10)); // 10px margins on all sides         
-        frame.add(comboBoxDays);
-
-        label= new JLabel("Please select or input the number of hikers:");
-        frame.add(label);
-        label.setBorder(new EmptyBorder(10, 10, 10, 10)); // 10px margins on all sides            
-        frame.add(comboBoxNumberHikers);
-
-        label= new JLabel("Click Submit button to get quote:");
-        frame.add(label);
-        label.setBorder(new EmptyBorder(10, 10, 10, 10)); // 10px margins on all sides 
-        frame.add(submitButon);
-
-        label= new JLabel("Cost:");
-        frame.add(label);
-        label.setBorder(new EmptyBorder(10, 10, 10, 10)); // 10px margins on all sides         
-        frame.add(costLabel);
-
-        if(comboBoxHikeType.getItemCount()>0){
-            comboBoxHikeType.setSelectedIndex(0);
+    private static Integer getMonthFromString(String monthStringName){
+        for(int i =0; i < zhu_d_hw4.months.length; i++)
+        {
+            if (zhu_d_hw4.months[i].equalsIgnoreCase(monthStringName))
+            {
+                return Integer.valueOf(i + 1);
+            }
         }
 
-        // Pack the frame to fit the components
-        frame.pack();
+        System.out.println("monthStringName=" + monthStringName);
 
-        // Center the frame on the screen
-        frame.setLocationRelativeTo(null);
-
-        // Set the frame to be visible
-        frame.setVisible(true);
-
+        return Integer.valueOf(-1);
     }
+
+    private double updateCost( HikeType hikeType,
+        Integer duration,
+        Integer startYear, 
+        Integer startMonth,
+        Integer startDay,
+        Integer numHikers
+    ){
+        if(hikeType==null || duration==null || 
+        startYear==null || startMonth==null || startDay==null || 
+        numHikers==null)
+        {
+            System.out.println("something wrong here!!!");
+            return 0.02;
+        }
+
+        BookingDay beginBookingDay = new BookingDay(startYear,startMonth, startDay);
+        System.out.println("beginBookingDay.isValidDate()=" + beginBookingDay.isValidDate());
+        rateObj.setBeginDate(beginBookingDay);
+        rateObj.setDuration(duration);
+        rateObj.setNumberHikers(numHikers);
+
+        BookingDay endBookingDay = rateObj.getEndBookingDay();
+        System.out.println("endBookingDay.isValidDate()=" + endBookingDay.isValidDate());
+        System.out.println("rateObj.isValidDates()=" + rateObj.isValidDates());
+        System.out.println("rateObj.isDurationValid()=" + rateObj.isDurationValid());
+        System.out.println("rateObj.numberHikersValid()=" + rateObj.numberHikersValid());
+        
+        GregorianCalendar beginDate = rateObj.getBeginDate();
+        GregorianCalendar endDate = rateObj.getEndDate();
+        // Define the date format
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        // Format the date
+        String formattedDate = dateFormat.format(beginDate.getTime());
+        // Print the formatted date
+        System.out.println("begin date: " + formattedDate);
+        formattedDate = dateFormat.format(endDate.getTime());
+        System.out.println("end date: " + formattedDate);
+
+        System.out.println("rateObj.getDetails()=" + rateObj.getDetails());
+
+        return rateObj.getCost();
+    }
+
+
 
 }
 
