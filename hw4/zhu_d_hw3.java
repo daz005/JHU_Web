@@ -192,10 +192,7 @@ public class zhu_d_hw3 {
                     System.out.println("Invalid number format: " + comboBoxDuration.getSelectedItem());
 
                     // Show a message dialog
-                    JOptionPane.showMessageDialog(frameObj, 
-                    "\""+ comboBoxDuration.getSelectedItem() + "\"" + " is not an integer number, please input an integer number!", 
-                    "Error Message", JOptionPane.INFORMATION_MESSAGE);
-
+                    displayErrorMessage("\""+ comboBoxDuration.getSelectedItem() + "\"" + " is not an integer number, please input an integer number!");
                     if(comboBoxDuration.getItemCount()>0)
                     {
                         comboBoxDuration.setSelectedIndex(0);
@@ -222,9 +219,7 @@ public class zhu_d_hw3 {
                     System.out.println("Invalid number format: " + comboBoxNumberHikers.getSelectedItem());
 
                     // Show a message dialog
-                    JOptionPane.showMessageDialog(frameObj, 
-                    "\""+ comboBoxNumberHikers.getSelectedItem() + "\"" +  " is not an integer number, please input an integer number!", 
-                    "Error Message", JOptionPane.INFORMATION_MESSAGE);
+                    displayErrorMessage("\""+ comboBoxNumberHikers.getSelectedItem() + "\"" +  " is not an integer number, please input an integer number!");
 
                     if(comboBoxNumberHikers.getItemCount()>0)
                     {
@@ -268,9 +263,7 @@ public class zhu_d_hw3 {
                     System.out.println("Invalid number format: " + comboBoxYear.getSelectedItem());
 
                     // Show a message dialog
-                    JOptionPane.showMessageDialog(frameObj, 
-                    "\""+ comboBoxYear.getSelectedItem() + "\"" +  " is not an integer number, please input an integer number!", 
-                    "Error Message", JOptionPane.INFORMATION_MESSAGE);
+                    displayErrorMessage("\""+ comboBoxYear.getSelectedItem() + "\"" +  " is not an integer number, please input an integer number!");
 
                     if(comboBoxYear.getItemCount()>0)
                     {
@@ -349,9 +342,7 @@ public class zhu_d_hw3 {
                     System.out.println("Invalid number format: " + comboBoxDays.getSelectedItem());
 
                     // Show a message dialog
-                    JOptionPane.showMessageDialog(frameObj, 
-                    "\""+ comboBoxDays.getSelectedItem() + "\"" + " is not an integer number, please input an integer number!", 
-                    "Error Message", JOptionPane.INFORMATION_MESSAGE);
+                    displayErrorMessage("\""+ comboBoxDays.getSelectedItem() + "\"" + " is not an integer number, please input an integer number!");
 
                     if(comboBoxDays.getItemCount()>0)
                     {
@@ -381,9 +372,7 @@ public class zhu_d_hw3 {
                     if(comboBoxMonths.getItemCount() > 0)
                     {
                         // Show a message dialog
-                        JOptionPane.showMessageDialog(frameObj, 
-                        "no such Month name: " + "\"" + comboBoxMonths.getSelectedItem() + "\"" , 
-                        "Error Message", JOptionPane.INFORMATION_MESSAGE);
+                        displayErrorMessage("no such Month name: " + "\"" + comboBoxMonths.getSelectedItem() + "\"");
 
                         comboBoxMonths.setSelectedIndex(0);
 
@@ -396,8 +385,8 @@ public class zhu_d_hw3 {
 
                 if(!updateCost(hikeType, duration, startYear, startMonth, startDay, numHikers)){
                     // Show a message dialog
-                    JOptionPane.showMessageDialog(frameObj, helper.removeDuplicates(rateObj.getDetails()), "Error Message", JOptionPane.INFORMATION_MESSAGE);
-                
+                    displayErrorMessage(helper.removeDuplicates(rateObj.getDetails()).toString());
+                    
                     if(!rateObj.numberHikersValid()){
 
                         if(comboBoxNumberHikers.getItemCount()>0)
@@ -445,6 +434,13 @@ public class zhu_d_hw3 {
     protected void displayCost()
     {
         costLabel.setText(String.valueOf(rateObj.getCost()));
+    }
+
+    protected void displayErrorMessage(String msg)
+    {
+        // Show a message dialog
+        JOptionPane.showMessageDialog(frameObj, msg, 
+        "Error Message", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private boolean updateCost( HikeType hikeType,

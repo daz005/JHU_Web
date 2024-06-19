@@ -103,6 +103,12 @@ public class zhu_d_hw4 extends zhu_d_hw3{
                         for (int i=0; i <parts.length;i++) 
                         {
                             System.out.println(parts[i]);
+
+                            if(i==1 && !parts[i].equalsIgnoreCase("Quoted Rate"))
+                            {
+                                // Show a message dialog
+                                displayErrorMessage(parts[i]);
+                            }
                         }
 
                         cost = Double.parseDouble(parts[0]);
