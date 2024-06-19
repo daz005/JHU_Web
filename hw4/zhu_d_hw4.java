@@ -38,79 +38,93 @@ public class zhu_d_hw4 extends zhu_d_hw3{
     }
     
     @Override
-    protected double getCost()
+    protected void displayCost()
     {
-        double cost = 0;
+        costLabel.setText("please wait for server response...");
 
-        GregorianCalendar startDate = rateObj.getBeginDate();
-        GregorianCalendar endDate = rateObj.getEndDate();
-
-        // Get the year, month, and day of the month
-        int year = startDate.get(Calendar.YEAR);
-        int month = startDate.get(Calendar.MONTH); // Note: Months are 0-based in Java Calendar (0 = January, 1 = February, ..., 11 = December)
-        int dayOfMonth = startDate.get(Calendar.DAY_OF_MONTH);
-        int duration_in_days = helper.calculateDifferenceInDays(startDate, endDate) + 1;
-
-        // Data to be sent to the server
-        String hikeId = "0";
-        HikeType[] hikeTypes = HikeType.values();
-        for(int i=0; i< hikeTypes.length; i++)
-        {
-            if(hikeTypes[i] == hikeType)
+        try {
+            Thread thread = new Thread(() -> 
             {
-                hikeId = String.valueOf(i);
-                break;
-            }
-        }
+                double cost = 0;
 
-        String beginMonth = String.valueOf(month + 1);
-        String beginDay = String.valueOf(dayOfMonth);;
-        String beginYear = String.valueOf(year);
-        String duration = String.valueOf(duration_in_days);
-        String numberHikers = String.valueOf(rateObj.getNumberHikers());
-        String dataToSend = hikeId + "&" + beginMonth + "&" + beginDay + "&" + beginYear + "&" + duration + "&" + numberHikers;
+                GregorianCalendar startDate = rateObj.getBeginDate();
+                GregorianCalendar endDate = rateObj.getEndDate();
 
-        System.out.println("hikeId= " + hikeId);
-        System.out.println("duration= " + duration);
-        System.out.println("beginYear= " + beginYear);
-        System.out.println("beginMonth= " + beginMonth);
-        System.out.println("beginDay= " + beginDay);
-        System.out.println("numberHikers= " + numberHikers);
+                // Get the year, month, and day of the month
+                int year = startDate.get(Calendar.YEAR);
+                int month = startDate.get(Calendar.MONTH); // Note: Months are 0-based in Java Calendar (0 = January, 1 = February, ..., 11 = December)
+                int dayOfMonth = startDate.get(Calendar.DAY_OF_MONTH);
+                int duration_in_days = helper.calculateDifferenceInDays(startDate, endDate) + 1;
 
-        try (
-            Socket socket = new Socket(serverAddress, port);
-            PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))
-            ) 
-            {
-                // Send data to the server
-                out.println(dataToSend);
-    
-                // Read response from the server
-                String response = in.readLine();
-    
-                System.out.println("Response from server: " + response);
-
-                // Split the string by the delimiter
-                String[] parts = response.split(delimiter);
-
-                // Print the results
-                for (int i=0; i <parts.length;i++) 
+                // Data to be sent to the server
+                String hikeId = "0";
+                HikeType[] hikeTypes = HikeType.values();
+                for(int i=0; i< hikeTypes.length; i++)
                 {
-                    System.out.println(parts[i]);
+                    if(hikeTypes[i] == hikeType)
+                    {
+                        hikeId = String.valueOf(i);
+                        break;
+                    }
                 }
 
-                cost = Double.parseDouble(parts[0]);
-    
-            } 
-            catch (Exception e) 
-            {
-                System.out.println("*****************************************************: ");
-                e.printStackTrace();
+                String beginMonth = String.valueOf(month + 1);
+                String beginDay = String.valueOf(dayOfMonth);;
+                String beginYear = String.valueOf(year);
+                String duration = String.valueOf(duration_in_days);
+                String numberHikers = String.valueOf(rateObj.getNumberHikers());
+                String dataToSend = hikeId + "&" + beginMonth + "&" + beginDay + "&" + beginYear + "&" + duration + "&" + numberHikers;
 
-                cost = - 0.01;
-            }
-        return cost;
-    }
+                System.out.println("hikeId= " + hikeId);
+                System.out.println("duration= " + duration);
+                System.out.println("beginYear= " + beginYear);
+                System.out.println("beginMonth= " + beginMonth);
+                System.out.println("beginDay= " + beginDay);
+                System.out.println("numberHikers= " + numberHikers);
+
+                try (
+                    Socket socket = new Socket(serverAddress, port);
+                    PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
+                    BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))
+                    ) 
+                    {
+                        // Send data to the server
+                        out.println(dataToSend);
+            
+                        // Read response from the server
+                        String response = in.readLine();
+            
+                        System.out.println("Response from server: " + response);
+
+                        // Split the string by the delimiter
+                        String[] parts = response.split(delimiter);
+
+                        // Print the results
+                        for (int i=0; i <parts.length;i++) 
+                        {
+                            System.out.println(parts[i]);
+                        }
+
+                        cost = Double.parseDouble(parts[0]);
+            
+                    } 
+                    catch (Exception e) 
+                    {
+                        System.out.println("*****************************************************: ");
+                        e.printStackTrace();
+
+                        cost = - 0.01;
+                    }
+                    costLabel.setText(String.valueOf(cost));
+            });
+
+            thread.setPriority(Thread.MIN_PRIORITY);
+            thread.start(); 
+        }catch(Exception excp) 
+        {
+            System.out.println("Exception= " + excp.getMessage());
+        }
+    }   
+
 }
 

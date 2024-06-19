@@ -24,6 +24,7 @@ public class zhu_d_hw3 {
 
     protected Rates rateObj = null;
     protected HikeType hikeType = null;
+    protected JLabel costLabel;
 
     private JFrame frameObj = null;
     private JComboBox<HikeType> comboBoxHikeType;
@@ -33,7 +34,7 @@ public class zhu_d_hw3 {
     private JComboBox<String> comboBoxMonths;
     private JComboBox<Integer> comboBoxDays;
     private JButton submitButon;
-    private JLabel costLabel;
+    
 
     public zhu_d_hw3()
     {
@@ -433,16 +434,17 @@ public class zhu_d_hw3 {
                     
                 }
                 else{
-                    costLabel.setText(String.valueOf(getCost()));
+                    //costLabel.setText(String.valueOf(getCost()));
+                    displayCost();
                 }
             }
         });
 
     }
 
-    protected double getCost()
+    protected void displayCost()
     {
-        return rateObj.getCost();
+        costLabel.setText(String.valueOf(rateObj.getCost()));
     }
 
     private boolean updateCost( HikeType hikeType,
