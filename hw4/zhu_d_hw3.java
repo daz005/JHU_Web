@@ -17,8 +17,8 @@ import java.util.*;
 
 // ****** Note ***** 
 // zip file name: lastname_firstinit_hw#.zip
-// how to compile in linux terminal: javac -cp ".:./BhcUtils.jar" zhu_d_hw3.java helper.java 
-// how to run in linux terminal: java -cp ".:./BhcUtils.jar" zhu_d_hw3
+// how to compile in linux terminal: javac -cp ".:./BhcUtils.jar" zhu_d_hw3.java helper.java main.java
+// how to run in linux terminal: java -cp ".:./BhcUtils.jar" main
 
 public class zhu_d_hw3 {
 
