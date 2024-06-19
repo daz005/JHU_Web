@@ -19,6 +19,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 
 // ****** Note ***** 
@@ -114,13 +115,22 @@ public class zhu_d_hw4 extends zhu_d_hw3{
                         cost = Double.parseDouble(parts[0]);
             
                     } 
-                    catch (Exception e) 
+                    catch (UnknownHostException hostex) 
                     {
                         System.out.println("*****************************************************: ");
-                        e.printStackTrace();
+                        hostex.printStackTrace();
 
                         cost = - 0.01;
+                        displayErrorMessage("Unknown Host Exception: " + hostex.getMessage());
                     }
+                    catch (Exception ex) 
+                    {
+                        System.out.println("*****************************************************: ");
+                        ex.printStackTrace();
+
+                        cost = - 0.01;
+                        displayErrorMessage(ex.getMessage());
+                    }                   
                     costLabel.setText(String.valueOf(cost));
             });
 
