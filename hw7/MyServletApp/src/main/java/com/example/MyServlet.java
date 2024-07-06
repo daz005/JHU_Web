@@ -7,12 +7,11 @@
 // |                   |-- MyServlet.java
 // |-- webapp/
 //     |-- index.html
-//     |-- script.js
 // |-- WEB-INF/
-//     |-- web.xml
+//     |-- web.xml    
 
 
-    package com.example;
+package com.example;
 
     import java.io.IOException;
     import java.io.PrintWriter;
@@ -22,11 +21,17 @@
     import javax.servlet.http.HttpServlet;
     import javax.servlet.http.HttpServletRequest;
     import javax.servlet.http.HttpServletResponse;
+    
+    
+    import edu.jhu.en605681.HikeType;
+    
+    
 
 //    @WebServlet("/MyServlet")
     public class MyServlet extends HttpServlet 
     {
         private static final long serialVersionUID = 1L;
+        private static final HikeType[] hikeTypes = HikeType.values();
         
                
             /**
@@ -40,6 +45,9 @@
 
         protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
         {
+            // Ensure correct character encoding
+            request.setCharacterEncoding("UTF-8");
+            response.setCharacterEncoding("UTF-8");   	
         	
             String hikeName = request.getParameter("hikeName");
             String year = request.getParameter("year");
@@ -57,14 +65,18 @@
         }
 
         protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    
-        	 String message = "<p>doGet!</p>";
-        	 generateForm(response, message, null);
+	
+        	String message = "<p>doGet!</p>";
+
+			generateForm(response, message, null);
 
         }
 
         private void generateForm(HttpServletResponse response, String message, FormData formData) throws IOException {
+        	
             response.setContentType("text/html");
+            response.setCharacterEncoding("UTF-8");  	
+
             PrintWriter out = response.getWriter();
 
             int currentYear = Calendar.getInstance().get(Calendar.YEAR);
@@ -90,14 +102,20 @@
             out.println(test);
             out.println("<h1>Hike Registration Form </h1>");
             out.println(message);
-            out.println("<form id=\"hikeForm\" method=\"post\" action=\"http://localhost:8080/zhu_d_hw6/MyServlet\">");
+            out.println("<form id=\"hikeForm\" method=\"post\"  enctype=\"application/x-www-form-urlencoded\" action=\"http://localhost:8080/zhu_d_hw6/MyServlet\">");
 
             out.println("<label for=\"hikeName\">Select a hike:</label>");
             out.println("<select id=\"hikeName\" name=\"hikeName\" required>");
 //            out.println("<option value=\"\">--Select a hike--</option>");
-            out.println("<option value=\"Trail A\"" + (formData != null && "Trail A".equals(formData.getHikeName()) ? " selected" : "") + ">Trail A</option>");
-            out.println("<option value=\"Trail B\"" + (formData != null && "Trail B".equals(formData.getHikeName()) ? " selected" : "") + ">Trail B</option>");
-            out.println("<option value=\"Trail C\"" + (formData != null && "Trail C".equals(formData.getHikeName()) ? " selected" : "") + ">Trail C</option>");
+            
+			for (int i=0; i < hikeTypes.length;i++) 
+			{
+				String item = hikeTypes[i].toString().replace(' ', '_');
+				out.println("<option value=" + item + (formData != null && item.equals(formData.getHikeName()) ? " selected" : "") + ">" + item + "</option>");
+			}
+//            out.println("<option value=\"Trail A\"" + (formData != null && "Trail A".equals(formData.getHikeName()) ? " selected" : "") + ">Trail A</option>");
+//            out.println("<option value=\"Trail B\"" + (formData != null && "Trail B".equals(formData.getHikeName()) ? " selected" : "") + ">Trail B</option>");
+//            out.println("<option value=\"Trail C\"" + (formData != null && "Trail C".equals(formData.getHikeName()) ? " selected" : "") + ">Trail C</option>");
             out.println("</select>");
 
             out.println("<label for=\"year\">Beginning Year:</label>");
