@@ -11,7 +11,7 @@
 //     |-- web.xml    
 
 
-package com.hw6;
+package com.hw7;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -107,7 +107,7 @@ public class MyServlet extends HttpServlet
 
             out.println("<h1>Assignment: Web Forms and Servlets</h1>");
             out.println("<h2>Student Name: Derek Zhu</h2>");
-            out.println("<form id=\"hikeForm\" method=\"post\"  enctype=\"application/x-www-form-urlencoded\" action=\"http://localhost:8080/zhu_d_hw6/MyServlet\">");
+            out.println("<form id=\"hikeForm\" method=\"post\"  enctype=\"application/x-www-form-urlencoded\" action=\"https://web3.jhuep.com/zhu_d_hw7/MyServlet\">");
 
             // Select a hike:
             ArrayList<String> hikeTypes_list = new ArrayList<String>();
@@ -200,7 +200,7 @@ public class MyServlet extends HttpServlet
             + "   var day = encodeURIComponent(document.getElementById('day').value);"
             + "   var duration = encodeURIComponent(document.getElementById('duration').value);"
             + "   var hikers = encodeURIComponent(document.getElementById('hikers').value);"
-            + "   var url = 'http://localhost:8080/zhu_d_hw6/MyServlet?hikeName=' + hikeName + '&year=' + year + '&month=' + month + '&day=' + day + '&duration=' + duration + '&hikers=' + hikers;"
+            + "   var url = 'https://web3.jhuep.com/zhu_d_hw7/MyServlet?hikeName=' + hikeName + '&year=' + year + '&month=' + month + '&day=' + day + '&duration=' + duration + '&hikers=' + hikers;"
             + "   window.location.href = url;"
             + "};"
             + "</script>";
