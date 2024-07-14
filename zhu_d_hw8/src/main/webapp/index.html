@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <script>
+        window.onload = function() {
+            window.location.href = "http://localhost:8080/zhu_d_hw8/MyServlet";
+        };
+    </script>
+</head>
+<body>
+    <p>If you are not redirected automatically, follow this <a href="http://localhost:8080/zhu_d_hw8/MyServlet">link</a>.</p>
+</body>
+</html>
+
+
+
+<!-- 
+
+For selfnote only:
+
+local test link:
+http://localhost:8080/zhu_d_hw8/MyServlet
+
+scp zhu_d_hw8.war dzhu27@web3.jhuep.com:/usr/local/tomcat/webapps/zhu_d_hw8.war
+
+class server link:
+https://web3.jhuep.com/zhu_d_hw8/MyServlet 
+
+
+index.html: A simple HTML page that redirects to the servlet.
+
+web.xml: Configuration for the servlet mapping.
+
+MyServlet.java: Processes the form submission, delegates business logic, and forwards requests to JSPs.
+
+FormData.java: A JavaBean that stores form data.
+
+BusinessLogic.java: Contains the business logic to calculate the cost of the hike.
+
+form.jsp: Displays the form for user input.
+
+result.jsp: Displays the results after processing the form submission.
+
+
+This setup ensures a clear separation of concerns, 
+with the servlet acting as a controller, 
+JSPs handling the view, and POJOs handling the business logic.
+
+ -->
+ 
+ 
