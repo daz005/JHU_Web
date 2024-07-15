@@ -22,24 +22,6 @@
          
     <form id="hikeForm" method="post" action="${pageContext.request.contextPath}/MyServlet">
         <label for="hikeName">Select a hike:</label>
-        <!-- <input type="text" name="hikeName" list="hikeNameList" required onchange="onUIDataChanged()" />
-        <datalist id="hikeNameList">
-            <%
-                selected_item = formData.getHikeName();
-                items = formData.getHikeNames();                
-                for (String item : items) {
-                    if(item.equals(selected_item)) {
-            %>   
-                        <option value="<%= item %>" selected ><%= item %></option>
-            <%
-                    } else {
-            %>
-                        <option value="<%= item %>"><%= item %></option>
-            <%
-                    }
-                }
-            %>
-        </datalist> -->
         <select id="hikeName" name="hikeName" required onchange="onUIDataChanged()">
             <%
                 selected_item = formData.getHikeName();
@@ -60,24 +42,6 @@
         
 
         <label for="year">Beginning Year:</label>
-        <!-- <input type="text" name="year" list="yearList" required onchange="onUIDataChanged()" />
-        <datalist id="yearList">     
-        <%
-            selected_item = formData.getYear();
-            items = formData.getYears();                
-            for (String item : items) {
-                if(item.equals(selected_item)) {
-        %>   
-                    <option value="<%= item %>" selected ><%= item %></option>
-        <%
-                } else {
-        %>
-                    <option value="<%= item %>"><%= item %></option>
-        <%
-                }
-            }
-        %>
-    </datalist>              -->
         <select id="year" name="year" required onchange="onUIDataChanged()">
             <%
                 selected_item = formData.getYear();

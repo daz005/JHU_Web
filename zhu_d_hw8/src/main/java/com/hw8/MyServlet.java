@@ -53,7 +53,7 @@ public class MyServlet extends HttpServlet {
         // Route requests to the view (JSP)
         request.setAttribute("formData", businessLogic.getFormData());
         
-        //if (isPost) 
+        if (isPost) 
         {
             request.setAttribute("result", businessLogic.getResult()); 
         }
