@@ -7,28 +7,39 @@ import java.util.ArrayList;
 
 /**
  * 
+ * JavaBeans: This is a LIGHTWEIGHT container for 
+ * storing and passing data between MVC components.  
+ * This component should have NO business logic as they 
+ * should be lightweight.
+ * 
  */
 public class FormData {
-    private String hikeName;
-    private ArrayList<String> hikeNames;
+    // Instance variables to hold form data
+    private String hikeName, year, month, day, duration, hikers;
+    // Lists to hold possible values for the form fields
+    private ArrayList<String> hikeNames, years, months, days, durations, hikersList;
 
-    private String year;
-    private ArrayList<String> years;
-
-    private String month;
-    private ArrayList<String> months;
-
-    private String day;
-    private ArrayList<String> days;
-
-    private String duration;
-    private ArrayList<String>  durations;
-
-    private String hikers;
-    private ArrayList<String> hikerList;
-
-    public FormData(String hikeName, String year, String month, String day, String duration, String hikers,
-        ArrayList<String> hikeNames, ArrayList<String>  durations, ArrayList<String> years, ArrayList<String> months, ArrayList<String> days, ArrayList<String> hikerList
+    /**
+     * Constructor to initialize the FormData object with form field values and their possible options.
+     * 
+     * @param hikeName   Selected hike name
+     * @param year       Selected year
+     * @param month      Selected month
+     * @param day        Selected day
+     * @param duration   Selected duration
+     * @param hikers     Selected number of hikers
+     * @param hikeNames  List of possible hike names
+     * @param durations  List of possible durations
+     * @param years      List of possible years
+     * @param months     List of possible months
+     * @param days       List of possible days
+     * @param hikersList List of possible number of hikers
+     */
+    public FormData(String hikeName, String year, 
+        String month, String day, String duration, String hikers,
+        ArrayList<String> hikeNames, ArrayList<String> durations, 
+        ArrayList<String> years, ArrayList<String> months, 
+        ArrayList<String> days, ArrayList<String> hikersList
     ) {
         this.hikeName = hikeName;
         this.year = year;
@@ -41,54 +52,68 @@ public class FormData {
         this.years = years;
         this.months = months;
         this.days = days;
-        this.hikerList = hikerList;
+        this.hikersList = hikersList;
     }
 
-    public String getHikeName() {
-        return hikeName;
-    }
+    // Getter methods to retrieve the form field values and their possible options
 
-    public ArrayList<String> getHikeNames() {
-        return hikeNames;
-    }
+    /**
+     * @return Selected hike name
+     */
+    public String getHikeName() { return hikeName; }
 
+    /**
+     * @return List of possible hike names
+     */
+    public ArrayList<String> getHikeNames() { return hikeNames; }
 
-    public String getYear() {
-        return year;
-    }
-    public ArrayList<String> getYears() {
-        return years;
-    }
+    /**
+     * @return Selected year
+     */
+    public String getYear() { return year; }
 
-    public String getMonth() {
-        return month;
-    }
-    public ArrayList<String> getMonths() {
-        return months;
-    }
+    /**
+     * @return List of possible years
+     */
+    public ArrayList<String> getYears() { return years; }
 
-    public String getDay() {
-        return day;
-    }
+    /**
+     * @return Selected month
+     */
+    public String getMonth() { return month; }
 
-    public ArrayList<String> getDays() {
-        return days;
-    }
+    /**
+     * @return List of possible months
+     */
+    public ArrayList<String> getMonths() { return months; }
 
-    public String getDuration() {
-        return duration;
-    }
-    
-    public ArrayList<String> getDurations() {
-        return durations;
-    }
+    /**
+     * @return Selected day
+     */
+    public String getDay() { return day; }
 
-    public String getHikers() {
-        return hikers;
-    }  
+    /**
+     * @return List of possible days
+     */
+    public ArrayList<String> getDays() { return days; }
 
-    public ArrayList<String> getHikerList() {
-        return hikerList;
-    }  
-    
+    /**
+     * @return Selected duration
+     */
+    public String getDuration() { return duration; }
+
+    /**
+     * @return List of possible durations
+     */
+    public ArrayList<String> getDurations() { return durations; }
+
+    /**
+     * @return Selected number of hikers
+     */
+    public String getHikers() { return hikers; }
+
+    /**
+     * @return List of possible number of hikers
+     */
+    public ArrayList<String> getHikersList() { return hikersList; }
 }
