@@ -4,8 +4,30 @@ https://jhu.instructure.com/courses/73633/discussion_topics/798200
 
 
 Databases and JDBC (Week 11) Point of Emphasis
-For this assignment we will not need the BHCUtils API.   You will need to create a NEW MVC2 web application for querying existing reservations with a date filter (a single date to filter stored reservations from that date, inclusive, until the present).  I expect your output to provide a table that displays the identified fields from the database tables as specified in the assignment.  Keep in mind that the data can be retrieved and manipulated in many ways, BUT it is ALWAYS best to let the database manipulate the data as it is much more efficient that your code (hint, use joins and sorts to get the data as close to what you want to display).   Read the jdbc connector notes carefully so you understand how to initialize and properly include it in your project.  The most current version of the connector (as of today) is version 9.0.0.  Make sure your connector is included in your web application and not just linked to it when you upload it/submit it or the assignment will not have everything in place to run.  Remember, for web applications, supporting jar libraries need to be included in the WEB-INF/lib directory.  If you are using Eclipse, there is no need to update the build path for the added jar if it is in that WEB-INF/lib directory.  Finally, the connection parameters for the homework database are given in THE HOMEWORK and not in the lecture and they are different from your class server account and Canvas logins.    The host you will be connecting to is on web6.jhuep.com (not web3) and the port is the default port for MySQL (3306).  The database name is class and the username and password are indicated in the homework. 
+For this assignment we will not need the BHCUtils API.   
+You will need to create a NEW MVC2 web application for querying existing reservations with 
+a date filter (a single date to filter stored reservations from that date, inclusive, until the present).  
+I expect your output to provide a table that displays the identified fields from the database tables as specified in the assignment. 
+Keep in mind that the data can be retrieved and manipulated in many ways, 
+BUT it is ALWAYS best to let the database manipulate the data as it is much more efficient 
+that your code (hint, use joins and sorts to get the data as close to what you want to display).   
+Read the jdbc connector notes carefully so you understand how to initialize and properly include it in your project.  
+The most current version of the connector (as of today) is version 9.0.0.  
+Make sure your connector is included in your web application and not just linked to it 
+when you upload it/submit it or the assignment will not have everything in place to run.  
+Remember, for web applications, supporting jar libraries need to be included in the WEB-INF/lib directory.  
+If you are using Eclipse, there is no need to update the build path for the added jar if it is in that WEB-INF/lib directory.  
+Finally, the connection parameters for the homework database are 
+given in THE HOMEWORK and not in the lecture and they are different 
+from your class server account and Canvas logins.    
+The host you will be connecting to is on web6.jhuep.com (not web3) and 
+the port is the default port for MySQL (3306).  
+The database name is class and the username and password are indicated in the homework. 
 
-As with the previous models, I expect your output page (with results/errors) to also contain the a copy of the input form so subsequent queries can be made from the results page.  Make sure you "echo" the previous user input in the generated form that you include with the results/errors from the previous request.  In addition, your generated output page (table and form) must be valid according to the W3C validator.
+As with the previous models, I expect your output page (with results/errors) to also 
+contain the a copy of the input form so subsequent queries can be made from the results page.  
+Make sure you "echo" the previous user input in the generated form 
+that you include with the results/errors from the previous request. 
+In addition, your generated output page (table and form) must be valid according to the W3C validator.
 
 Rich
