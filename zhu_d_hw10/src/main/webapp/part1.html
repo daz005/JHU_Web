@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hike Quote</title>
+</head>
+<body>
+	<h1>Get Hike Quote</h1>
+	<!-- the form contains the input elements to collect specific information
+		 as you did in earlier work.  Make sure names of parameters correspond
+		 to the field values in the desired JSON/Java object. -->
+	<form id="myForm" action="/zhu_d_hw10/api/quote/html" method="post" >
+		<!-- Add your gui widgets and input elements here -->
+		<table style="padding:3;">
+		<tr>
+			<td><label for="hikeInput">Hike Selector:</label></td>
+			<td>
+				<select id="hikeInput" name="hike">
+					<option value="Navajo Loop">Navajo Loop</option>
+					<option value="Fairyland Loop">Fairyland Loop</option>
+					<option value="Mossy Cave Trail">Mossy Cave Trail</option>
+					<option value="Queens Garden Trail">Queens Garden Trail</option>				
+					<option value="Bryce Canyon Rim">Bryce Canyon Rim</option>											
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="dateInput">Date:</label></td>
+			<td><input id="dateInput" name="date" type="date"/></td>
+		</tr>
+		<tr>
+			<td><label for="durationInput">Duration:</label></td>
+			<td><input id="durationInput" name="duration" type="text" value=""/></td>
+		</tr>
+		<tr>
+			<td><label for="numHikerInput">Number of Hikers:</label></td>
+			<td><input id="numHikerInput" name="numHikers" type="text" value=""/></td>
+		</tr>
+		<!-- Keep the button for submitting your form, but you need to 
+			 update the parameter, url, to reference your back end 
+			 service that will process the input data -->
+		<tr>
+			<td colspan="2" align="center">
+				<button type="submit">Get Rate</button>
+			</td>
+		</tr>
+		</table>
+	</form>     
+	<!-- This is nothing more than a labelled "output area" for your results or errors -->
+	<div id="responseArea"><pre></pre></div>
+</body>
+</html>
