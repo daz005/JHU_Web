@@ -5,10 +5,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
+/**
+ * Utility class containing helper methods for date conversion and integer validation.
+ */
 public class Util {
 
     /**
@@ -25,7 +24,7 @@ public class Util {
             "dd/MM/yyyy",     // Common European format
             "MM/dd/yyyy",     // Common US format
             "dd-MMM-yyyy",    // Format with abbreviated month names
-            "MMM dd, yyyy",   // Format with full month names
+            "MMM dd, yyyy"    // Format with full month names
             // Add more formats as needed
         };
 
@@ -34,8 +33,10 @@ public class Util {
             try {
                 // Create a DateTimeFormatter with the current format
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format, Locale.ENGLISH);
+                
                 // Parse the date string to a LocalDate
                 LocalDate date = LocalDate.parse(dateStr, formatter);
+                
                 // Format the LocalDate to the desired yyyy-MM-dd format
                 return date.format(DateTimeFormatter.ISO_LOCAL_DATE);
             } catch (DateTimeParseException e) {
@@ -43,11 +44,11 @@ public class Util {
             }
         }
 
-        // If no format matched, throw an exception or return a default value
-        throw new IllegalArgumentException("Input could not be parsesd for field: date");
+        // If no format matched, throw an exception
+        throw new IllegalArgumentException("Input could not be parsed for field: date");
     }
 
-        /**
+    /**
      * Checks if a given string can be converted to an integer.
      * 
      * @param theStr The string to check
@@ -58,14 +59,10 @@ public class Util {
             return false;
         }
         try {
-            Integer x = Integer.parseInt(theStr);
-            System.out.println("----string:" + theStr + " is integer:" + x);
+            Integer.parseInt(theStr);
         } catch (NumberFormatException e) {
-            System.out.println("----string:" + theStr + " is Not integer");
             return false;
         }
         return true;
     }
-
 }
-

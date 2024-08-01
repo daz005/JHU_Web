@@ -1,93 +1,98 @@
 <!DOCTYPE html>
-<html>
-	<head>
-        <title>HW10-part-2</title>
-        <meta charset="utf-8">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-		<script>
-			function sendRequest(url) {
-				// get form parameters and translate them to a JSON object
-				// that is mapped to a JSON/Java object in service
-				var viewArr = $("#myForm").serializeArray();
-			  	var view = {};
-			  	// need to convert { name:"VarName", value:"ValName"} to {VarName:"ValName"}
-			  	for (var i in viewArr) {
-			    	view[viewArr[i].name] = viewArr[i].value;
-			  	}
+<html lang="en">
+<head>
+    <title>HW10-part-2</title>
+    <meta charset="utf-8">
+    <!-- Include jQuery library for AJAX requests -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        // Function to send a request to the server
+        function sendRequest(url) {
+            // Get form parameters and convert them to a JSON object
+            var viewArr = $("#myForm").serializeArray();
+            var view = {};
+            // Convert { name:"VarName", value:"ValName"} to {VarName:"ValName"}
+            for (var i in viewArr) {
+                view[viewArr[i].name] = viewArr[i].value;
+            }
                           
-                // call back to service with post containing JSON data and on
-                // return process results back into page          
-                $.ajax({
-                    type:"POST",
-                    contentType: 'application/json',
-                    dataType: "json",
-                    data: JSON.stringify(view),
-                    url: url,
-                    // you will want to update success function to get specific
-                    // JSON data fields for output back to the original HTML page
-                    success: function(data) {
-						// this sets the html content of the html object
-						// with id of reponseArea.  
-						if (data.quote != -0.01) {
-							s = "<b>Quote = $" + data.quote.toFixed(2) + "</b>";
-							$("#responseArea").html(s);
-						} else {
-							e = "<p><b>*** Errors Found in Input ***</b></p><ul>"
-							for (i = 0; i < data.errors.length; i++) {
-								e = e + "<li>" + data.errors[i] + "</il>";	
-							}
-							e = e + "</ul>";
-							$("#responseArea").html(e);						
-						}
-                 	}
-                });
-			};	
-		</script>
-	</head>
-	<body>
-		<h3>Homework 10: ReSTFul Web Services & JSON </h3>
-		<h1>Get Hike Quote (Part 2: JSON) </h1>
-		<!-- the form contains the input elements to collect specific information
-			 as you did in earlier work.  Make sure names of parameters correspond
-			 to the field values in the desired JSON/Java object. -->
-		<form id="myForm">
-			<!-- Add your gui widgets and input elements here -->
-			<table style="padding:3;">
-			<tr>
-				<td><label for="hikeInput">Hike Selector:</label></td>
-				<td>
-					<select id="hikeInput" name="hike">
-						<option value="Navajo Loop">Navajo Loop</option>
-						<option value="Fairyland Loop">Fairyland Loop</option>
-						<option value="Mossy Cave Trail">Mossy Cave Trail</option>
-						<option value="Queens Garden Trail">Queens Garden Trail</option>				
-						<option value="Bryce Canyon Rim">Bryce Canyon Rim</option>											
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td><label for="dateInput">Date:</label></td>
-				<td><input id="dateInput" name="date" type="date"/></td>
-			</tr>
-			<tr>
-				<td><label for="durationInput">Duration:</label></td>
-				<td><input id="durationInput" name="duration" type="text" value=""/></td>
-			</tr>
-			<tr>
-				<td><label for="numHikerInput">Number of Hikers:</label></td>
-				<td><input id="numHikerInput" name="numHikers" type="text" value=""/></td>
-			</tr>
-			<!-- Keep the button for submitting your form, but you need to 
-				 update the parameter, url, to reference your back end 
-				 service that will process the input data -->
-			<tr>
-				<td colspan="2" align="center">
-		            <button type="button" onclick="sendRequest('/zhu_d_hw10/api/quote/json')">Get Rate</button>
-		        </td>
-		    </tr>
-            </table>
-		</form>     
-		<!-- This is nothing more than a labelled "output area" for your results or errors -->
-        <div id="responseArea"><pre></pre></div>
-	</body>
+            // Send a POST request to the server with the JSON data
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json',
+                dataType: "json",
+                data: JSON.stringify(view),
+                url: url,
+                success: function(data) {
+                    // Update the HTML content of the element with id 'responseArea'
+                    if (data.quote != -0.01) {
+                        var s = "<b>Quote = $" + data.quote.toFixed(2) + "</b>";
+                        $("#responseArea").html(s);
+                    } else {
+                        var e = "<p><b>*** Errors Found in Input ***</b></p><ul>";
+                        for (var i = 0; i < data.errors.length; i++) {
+                            e += "<li>" + data.errors[i] + "</li>";    
+                        }
+                        e += "</ul>";
+                        $("#responseArea").html(e);                        
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <!-- Header section for the homework description -->
+	<h1>Get Hike Quote (Part 2: JSON)</h1>
+    <h2>Homework 10: ReSTFul Web Services & JSON</h2>
+	<h3>Student Name: Derek Zhu</h3>
+    
+    
+    <!-- Form to collect hike quote details and submit via AJAX -->
+    <form id="myForm">
+        <table >
+            <!-- Dropdown menu for selecting a hike -->
+            <tr>
+                <td><label for="hikeInput">Hike Selector:</label></td>
+                <td>
+                    <select id="hikeInput" name="hike">
+                        <option value="Navajo Loop">Navajo Loop</option>
+                        <option value="Fairyland Loop">Fairyland Loop</option>
+                        <option value="Mossy Cave Trail">Mossy Cave Trail</option>
+                        <option value="Queens Garden Trail">Queens Garden Trail</option>                
+                        <option value="Bryce Canyon Rim">Bryce Canyon Rim</option>                                            
+                    </select>
+                </td>
+            </tr>
+
+            <!-- Input field for selecting the date of the hike -->
+            <tr>
+                <td><label for="dateInput">Date:</label></td>
+                <td><input id="dateInput" name="date" type="date"/></td>
+            </tr>
+
+            <!-- Input field for entering the duration of the hike -->
+            <tr>
+                <td><label for="durationInput">Duration:</label></td>
+                <td><input id="durationInput" name="duration" type="text" value=""/></td>
+            </tr>
+
+            <!-- Input field for entering the number of hikers -->
+            <tr>
+                <td><label for="numHikerInput">Number of Hikers:</label></td>
+                <td><input id="numHikerInput" name="numHikers" type="text" value=""/></td>
+            </tr>
+
+            <!-- Button to submit the form and send the AJAX request -->
+            <tr>
+                <td colspan="2" >
+                    <button type="button" onclick="sendRequest('/zhu_d_hw10/api/quote/json')">Get Rate</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    
+    <!-- Area to display the response or errors from the server -->
+    <div id="responseArea"><pre></pre></div>
+</body>
 </html>
