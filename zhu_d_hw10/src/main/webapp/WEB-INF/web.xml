@@ -6,7 +6,8 @@
    
    <display-name>Zhu_d_hw10</display-name>
    <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
+    <welcome-file>part1.html</welcome-file>
+    <welcome-file>part2.html</welcome-file>
   </welcome-file-list>
 
     <servlet>

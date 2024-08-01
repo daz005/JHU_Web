@@ -58,8 +58,10 @@ public class Util {
             return false;
         }
         try {
-            Integer.parseInt(theStr);
+            Integer x = Integer.parseInt(theStr);
+            System.out.println("----string:" + theStr + " is integer:" + x);
         } catch (NumberFormatException e) {
+            System.out.println("----string:" + theStr + " is Not integer");
             return false;
         }
         return true;

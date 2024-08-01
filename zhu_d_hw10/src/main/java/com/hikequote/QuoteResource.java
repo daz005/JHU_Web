@@ -24,7 +24,7 @@ public class QuoteResource {
         BusinessLogic bu = new BusinessLogic(hike, date, duration, numHikers);
 
         List<String> errors =  bu.getErrors();
-        String quote = bu.getResult();
+        double quote = bu.getResult();
 
         String result ="<html><body>";
         result = "<p>" + quote + "</p>";
@@ -53,10 +53,9 @@ public class QuoteResource {
 
         BusinessLogic bu = new BusinessLogic(hike, date, duration, numHikers);
         List<String> errors =  bu.getErrors();
-        String quote = bu.getResult();     
+        double quote = bu.getResult();     
         QuoteResponse response = new QuoteResponse(quote, errors);
         return Response.ok(response).build();
-
 
     }
 
